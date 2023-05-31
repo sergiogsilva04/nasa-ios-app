@@ -17,16 +17,66 @@ SSD/CNEOS: fireball, sentry
 TLE API?
 
 APOD - https://apod.nasa.gov/apod/astropix.html
-JSON Example: {
-    "date": "2023-05-31",
-    "explanation": "How did we get here? We know that we live on a planet orbiting a star orbiting a galaxy, but how did all of this form? Since our universe moves too slowly to watch, faster-moving computer simulations are created to help find out. Specifically, this featured video from the IllustrisTNG collaboration tracks gas from the early universe (redshift 12) until today (redshift 0). As the simulation begins, ambient gas falls into and accumulates in a region of relatively high gravity.  After a few billion years, a well-defined center materializes from a strange and fascinating cosmic dance. Gas blobs -- some representing small satellite galaxies -- continue to fall into and become absorbed by the rotating galaxy as the present epoch is reached and the video ends.  For the Milky Way Galaxy, however, big mergers may not be over -- recent evidence indicates that our large spiral disk Galaxy will collide and coalesce with the slightly larger Andromeda spiral disk galaxy in the next few billion years.    Open Science: Browse 3,000+ codes in the Astrophysics Source Code Library",
-    "media_type": "video",
-    "service_version": "v1",
-    "title": "Simulation: A Disk Galaxy Forms",
-    "url": "https://www.youtube.com/embed/X4UF9Akman0?rel=0"
+Details: {
+    Pode ser uma imagem ou um vídeo (verificar se é preciso ou nao a thumb), no filtro por range verificar se existe limite de range
+    Descriçao com scrollable view
 }
-Details: Pode ser uma imagem ou um vídeo (verificar se é preciso ou nao a thumb), no filtro por range verificar se existe limite de range
 Functionalities: {
 	Ir buscar do dia (com uma galeria de poder ver os anteriores)
 	Filtrar por: data, range (data inicio e/ou data fim), random date (count = 1)
 }
+
+Earth - https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
+Details: {
+    coordenadas e data obrigatorio, dim default = 0.15
+}
+Functionalities: {
+    fazer um mapa onde o user escolhe o local e aparece no ecra o resultado, e sendo possível escolher o dia, senao pega hoje
+    a pessoa introduzir as coordenadas e a data
+    fazer zoom (alterar dim)
+}
+
+EONET - https://worldview.earthdata.nasa.gov > https://eonet.gsfc.nasa.gov/docs/v2.1 > https://eonet.gsfc.nasa.gov/api/v2.1/events/EONET_6353
+Details: {
+    Ao pressionar o icon aparecer o nome da categoria
+}
+Functionalities: {
+    Feed de eventos (mais recente primeiro, 20 primeiros)
+    Filtrar evento: {
+        por categorias (ir buscar o endpoint das categorias para carregar)
+        por paises?
+        ativos ou nao ativo
+        tracking no caso de eventos que se movam (que tenham mais de 1 coordenada)
+    }
+}
+
+EPIC - https://epic.gsfc.nasa.gov/about/api
+Details: {
+    360 view, passar as imagens todas no play
+}
+Functionalities: {
+    Aparece a mais recente primeiro
+    Filtros: {
+        data, galeria?
+    }
+}
+
+Mars Rover Photos -
+Details: {
+
+}
+Functionalities: {
+    Filtros: {
+    }
+}
+
+Nasa Image and Video Library - https://images.nasa.gov > https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf
+Details: {
+
+}
+Functionalities: {
+    Filtros: {
+    }
+}
+
+
