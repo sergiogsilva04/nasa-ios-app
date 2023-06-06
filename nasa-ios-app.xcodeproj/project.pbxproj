@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5721A2EF2A2E3D90003CBDC6 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5721A2EE2A2E3D90003CBDC6 /* Category.swift */; };
 		5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5721A2F02A2E3FFB003CBDC6 /* Event.swift */; };
 		5721A2F72A2E44BB003CBDC6 /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5721A2F62A2E44BB003CBDC6 /* TODO.rtf */; };
+		573316B72A2F49D400337FBD /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573316B62A2F49D400337FBD /* EventRow.swift */; };
 		5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */; };
 		5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFD12A1E4D7E004391C6 /* ContentView.swift */; };
 		5750AFD42A1E4D7F004391C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD32A1E4D7F004391C6 /* Assets.xcassets */; };
@@ -17,9 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5721A2EE2A2E3D90003CBDC6 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5721A2F02A2E3FFB003CBDC6 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5721A2F62A2E44BB003CBDC6 /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
+		573316B62A2F49D400337FBD /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
 		5750AFCC2A1E4D7E004391C6 /* nasa-ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nasa-ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nasa_ios_appApp.swift; sourceTree = "<group>"; };
 		5750AFD12A1E4D7E004391C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -41,7 +41,6 @@
 		5721A2ED2A2E3C63003CBDC6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5721A2EE2A2E3D90003CBDC6 /* Category.swift */,
 				5721A2F02A2E3FFB003CBDC6 /* Event.swift */,
 			);
 			path = Models;
@@ -72,6 +71,7 @@
 				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
 				5750AFD52A1E4D7F004391C6 /* Preview Content */,
+				573316B62A2F49D400337FBD /* EventRow.swift */,
 			);
 			path = "nasa-ios-app";
 			sourceTree = "<group>";
@@ -158,7 +158,7 @@
 				5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */,
 				5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */,
 				5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */,
-				5721A2EF2A2E3D90003CBDC6 /* Category.swift in Sources */,
+				573316B72A2F49D400337FBD /* EventRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

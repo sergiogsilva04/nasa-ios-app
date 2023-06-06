@@ -1,28 +1,38 @@
-//
-//  ContentView.swift
-//  nasa-ios-app
-//
-//  Created by Aluno ISTEC on 24/05/2023.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var loadEvents = loadEventsData(url: "https://eonet.gsfc.nasa.gov/api/v2.1/events")
+    @StateObject var loadEvents = loadEventsData(url: "https://eonet.gsfc.nasa.gov/api/v3/events?limit=3")
+    @State private var events: Events = []
+    
+    func loadEventsAsync() async {
+        do {
+            events = try await loadEvents.loadAsync()!
+            
+        } catch {
+            print("erro: \(error)")
+        }
+    }
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, sergio!")
+            Text("Eventos")
+                .font(.system(size: 40))
             
-            Button("Load events") {
-                Task {
-                    let events = try await loadEvents.loadAsync()
-                    
-                    print(events!.first!)
+            NavigationView {
+                List(events) { event in
+                    NavigationLink {
+                        Text("teste")
+                        
+                    } label: {
+                        EventRow(event: event)
+                    }
+                    .listRowBackground(event.closed == nil ? Color.green : Color.red)
                 }
+                
+            }.task {
+                await loadEventsAsync()
+                
+                print(events.count)
             }
         }
         .padding()
@@ -34,3 +44,21 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+//
+//Task {
+//    do {
+//        var events = try await loadEvents.loadAsync()
+//
+//        ForEach (events) { event in
+//            NavigationLink {
+//                Text("teste")
+//
+//            } label: {
+//                EventListitem(event: event)
+//            }
+//        }
+//
+//    } catch {
+//        print("error \(error)")
+//    }
+//}

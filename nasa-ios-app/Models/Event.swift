@@ -1,6 +1,8 @@
 import Foundation
 
 struct Geometry: Decodable {
+    var magnitudeValue: Double?
+    var magnitudeUnit: String?
     var date: String
     var type: String
     var coordinates: [Double]
@@ -11,17 +13,23 @@ struct Source: Identifiable, Decodable {
     var url: String
 }
 
+struct Category: Identifiable, Decodable {
+    var id: String
+    var title: String
+}
+
 struct Event: Identifiable, Decodable {
     var id: String
     var title: String
-    var description: String
+    var description: String?
     var link: String
+    var closed: String?
     var categories: [Category]
     var sources: [Source]
-    var geometries: [Geometry]
+    var geometry: [Geometry]
 }
 
-struct Initial: Decodable {
+struct EventsResponse: Decodable {
     var title: String
     var description: String
     var link: String
@@ -42,10 +50,10 @@ class loadEventsData: ObservableObject {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            fatalError("Error loading categories")
+            fatalError("Error loading events")
         }
-            
-        let eventsResponse = try JSONDecoder().decode(Initial.self, from: data)
+
+        let eventsResponse = try JSONDecoder().decode(EventsResponse.self, from: data)
 
         return eventsResponse.events
     }
