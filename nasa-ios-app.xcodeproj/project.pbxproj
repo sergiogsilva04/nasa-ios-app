@@ -14,6 +14,10 @@
 		5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFD12A1E4D7E004391C6 /* ContentView.swift */; };
 		5750AFD42A1E4D7F004391C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD32A1E4D7F004391C6 /* Assets.xcassets */; };
 		5750AFD72A1E4D7F004391C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */; };
+		57A725472A30ADC000B5C9CC /* Archive.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57A725462A30ADBF00B5C9CC /* Archive.zip */; };
+		57A725492A30B28D00B5C9CC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725482A30B28D00B5C9CC /* Category.swift */; };
+		57A725672A30E84100B5C9CC /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725662A30E84100B5C9CC /* ContentViewModel.swift */; };
+		57A725692A30E8B600B5C9CC /* listsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725682A30E8B600B5C9CC /* listsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		5750AFD12A1E4D7E004391C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5750AFD32A1E4D7F004391C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		57A725462A30ADBF00B5C9CC /* Archive.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Archive.zip; sourceTree = "<group>"; };
+		57A725482A30B28D00B5C9CC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		57A725662A30E84100B5C9CC /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		57A725682A30E8B600B5C9CC /* listsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				5721A2F02A2E3FFB003CBDC6 /* Event.swift */,
+				57A725482A30B28D00B5C9CC /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -66,12 +75,14 @@
 		5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */ = {
 			isa = PBXGroup;
 			children = (
+				57A725652A30E81F00B5C9CC /* Content View */,
 				5721A2ED2A2E3C63003CBDC6 /* Models */,
 				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
-				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
 				5750AFD52A1E4D7F004391C6 /* Preview Content */,
 				573316B62A2F49D400337FBD /* EventRow.swift */,
+				57A725462A30ADBF00B5C9CC /* Archive.zip */,
+				57A725682A30E8B600B5C9CC /* listsData.swift */,
 			);
 			path = "nasa-ios-app";
 			sourceTree = "<group>";
@@ -82,6 +93,15 @@
 				5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		57A725652A30E81F00B5C9CC /* Content View */ = {
+			isa = PBXGroup;
+			children = (
+				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
+				57A725662A30E84100B5C9CC /* ContentViewModel.swift */,
+			);
+			path = "Content View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +164,7 @@
 			files = (
 				5750AFD72A1E4D7F004391C6 /* Preview Assets.xcassets in Resources */,
 				5750AFD42A1E4D7F004391C6 /* Assets.xcassets in Resources */,
+				57A725472A30ADC000B5C9CC /* Archive.zip in Resources */,
 				5721A2F72A2E44BB003CBDC6 /* TODO.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +177,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */,
+				57A725492A30B28D00B5C9CC /* Category.swift in Sources */,
+				57A725692A30E8B600B5C9CC /* listsData.swift in Sources */,
+				57A725672A30E84100B5C9CC /* ContentViewModel.swift in Sources */,
 				5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */,
 				5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */,
 				573316B72A2F49D400337FBD /* EventRow.swift in Sources */,
