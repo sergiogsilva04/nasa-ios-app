@@ -6,11 +6,14 @@ class ContentViewModel: ObservableObject, listsData {
     @Published var selectedCategory: Category.ID = "all"
     @Published var selectedEventsStatus: String = "On going"
     @Published var isShowingCategoryInfo = false
+    @Published var dateFormatter = DateFormatter()
+    
     let eventsLimit = 20
-
     let eventsStatus: [String] = ["On going", "Finished", "All"]
     
     init() {
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:MM:SS"
+    
         Task {
             do {
                 try await getEvents()

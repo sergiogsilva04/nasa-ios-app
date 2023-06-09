@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ContentViewModel()
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -42,7 +42,6 @@ struct ContentView: View {
                         ForEach(viewModel.eventsStatus, id: \.self) {
                             Text($0)
                         }
-                        
                     }
                     .pickerStyle(.segmented)
                 }
@@ -51,10 +50,10 @@ struct ContentView: View {
                 
                 List(viewModel.filteredEvents) { event in
                     NavigationLink {
-                        Text("teste")
+                        EventInfoView(event: event)
                         
                     } label: {
-                        EventRow(event: event)
+                        EventRowView(event: event)
                     }
                     .listRowBackground(event.closed == nil ? Color.green : Color.red)
                 }

@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5721A2F02A2E3FFB003CBDC6 /* Event.swift */; };
 		5721A2F72A2E44BB003CBDC6 /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5721A2F62A2E44BB003CBDC6 /* TODO.rtf */; };
-		573316B72A2F49D400337FBD /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573316B62A2F49D400337FBD /* EventRow.swift */; };
+		573316B72A2F49D400337FBD /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573316B62A2F49D400337FBD /* EventRowView.swift */; };
+		573D475A2A3309B3008A6E9B /* EventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573D47592A3309B3008A6E9B /* EventInfoView.swift */; };
 		5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */; };
 		5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFD12A1E4D7E004391C6 /* ContentView.swift */; };
 		5750AFD42A1E4D7F004391C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD32A1E4D7F004391C6 /* Assets.xcassets */; };
@@ -23,7 +24,8 @@
 /* Begin PBXFileReference section */
 		5721A2F02A2E3FFB003CBDC6 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5721A2F62A2E44BB003CBDC6 /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
-		573316B62A2F49D400337FBD /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
+		573316B62A2F49D400337FBD /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
+		573D47592A3309B3008A6E9B /* EventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoView.swift; sourceTree = "<group>"; };
 		5750AFCC2A1E4D7E004391C6 /* nasa-ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nasa-ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nasa_ios_appApp.swift; sourceTree = "<group>"; };
 		5750AFD12A1E4D7E004391C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		573D47582A3309A4008A6E9B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				573316B62A2F49D400337FBD /* EventRowView.swift */,
+				573D47592A3309B3008A6E9B /* EventInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5750AFC32A1E4D7E004391C6 = {
 			isa = PBXGroup;
 			children = (
@@ -75,12 +86,12 @@
 		5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */ = {
 			isa = PBXGroup;
 			children = (
-				57A725652A30E81F00B5C9CC /* Content View */,
+				573D47582A3309A4008A6E9B /* Views */,
+				57A725652A30E81F00B5C9CC /* ContentView */,
 				5721A2ED2A2E3C63003CBDC6 /* Models */,
 				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
 				5750AFD52A1E4D7F004391C6 /* Preview Content */,
-				573316B62A2F49D400337FBD /* EventRow.swift */,
 				57A725462A30ADBF00B5C9CC /* Archive.zip */,
 				57A725682A30E8B600B5C9CC /* listsData.swift */,
 			);
@@ -95,13 +106,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		57A725652A30E81F00B5C9CC /* Content View */ = {
+		57A725652A30E81F00B5C9CC /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
 				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 				57A725662A30E84100B5C9CC /* ContentViewModel.swift */,
 			);
-			path = "Content View";
+			path = ContentView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,10 +190,11 @@
 				5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */,
 				57A725492A30B28D00B5C9CC /* Category.swift in Sources */,
 				57A725692A30E8B600B5C9CC /* listsData.swift in Sources */,
+				573D475A2A3309B3008A6E9B /* EventInfoView.swift in Sources */,
 				57A725672A30E84100B5C9CC /* ContentViewModel.swift in Sources */,
 				5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */,
 				5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */,
-				573316B72A2F49D400337FBD /* EventRow.swift in Sources */,
+				573316B72A2F49D400337FBD /* EventRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
