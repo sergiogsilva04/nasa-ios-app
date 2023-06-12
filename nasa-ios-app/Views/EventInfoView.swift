@@ -1,7 +1,10 @@
 import SwiftUI
+import MapKit
 
 struct EventInfoView: View {
     @StateObject var viewModel = ContentViewModel()
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+
     var event: Event
     
     var body: some View {
@@ -13,25 +16,38 @@ struct EventInfoView: View {
                         .scaledToFill()
                         .frame(width: 30, height: 30)
                     
-                    Text(event.title)
-                        .font(.system(size: 25))
+                    Text(event.categories.first!.title)
+                        .font(.system(size: 20))
                 }
                 .padding(20)
                 .background(event.closed == nil ? .green : .red)
                 .cornerRadius(20)
-            
-                Text("Category: \(event.categories.first!.title)")
                 
+                Map(coordinateRegion: $region)
+
+                Text("Start date")
+                    .bold()
+        
+                Text("12 Jun 2023 | 15:15:20")
                 
-                // TODO: MAP
+                Spacer()
+                    .frame(height: 10)
                 
-                // TODO: Format the date
-                //Text("Start date: \(viewModel.dateFormatter.date(from: "14/07/2020"))")
-                Text("End date: \(event.closed ?? "Not finished")")
+                Text("End date")
+                    .bold()
                 
-                // TODO: se valer a pena fazer uma field da ultima localizaçao do evento
+                Text(event.closed ?? "Not ended")
+                
+                Spacer()
+                    .frame(height: 10)
+                                
+                Text("Location")
+                    .bold()
+                
+                Text("Lisbon, Portugal")
             }
             .navigationTitle(event.title)
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }

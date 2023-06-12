@@ -16,22 +16,28 @@ struct ContentView: View {
                         }) {
                             Image(systemName: "info.circle")
                         }
-                        .foregroundColor(.blue)
+                        .disabled($viewModel.selectedCategoryId.wrappedValue == "all")
+                        .foregroundColor($viewModel.selectedCategoryId.wrappedValue == "all" ? .gray : .blue)
                         .sheet(isPresented: $viewModel.isShowingCategoryInfo) {
                             VStack {
                                 Rectangle()
                                    .frame(width: 40, height: 5)
                                    .cornerRadius(2.5)
                                    .foregroundColor(Color.secondary)
+                             
+                                let selectedCategory = viewModel.getCategoryById(categoryId: viewModel.selectedCategoryId)
+                                                            
+                                Text(selectedCategory?.title ?? "Category")
+                                    .font(.title)
+                                    .padding(.bottom, 5)
                                 
-//                                Text(viewModel.selectedCategory?.title ?? "Category").font(.title)
-//                                Text(viewModel.selectedCategory?.description ?? "Description")
+                                Text(selectedCategory?.description ?? "Description")
                             }
                             .padding()
                             .presentationDetents([.height(200)])
                         }
                         
-                        Picker("Category", selection: $viewModel.selectedCategory) {
+                        Picker("Category", selection: $viewModel.selectedCategoryId) {
                             ForEach(viewModel.categoriesList, id: \.id) {
                                 Text($0.title).tag($0.id)
                             }

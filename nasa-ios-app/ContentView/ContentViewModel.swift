@@ -3,17 +3,33 @@ import SwiftUI
 class ContentViewModel: ObservableObject, listsData {
     @Published var eventsList: Events = []
     @Published var categoriesList: Categories = []
-    @Published var selectedCategory: Category.ID = "all"
+    @Published var selectedCategoryId: Category.ID = "all"
     @Published var selectedEventsStatus: String = "On going"
     @Published var isShowingCategoryInfo = false
-    @Published var dateFormatter = DateFormatter()
     
     let eventsLimit = 20
     let eventsStatus: [String] = ["On going", "Finished", "All"]
+    let dateFormatter = DateFormatter()
+    
+    var filteredEvents: [Event] {
+        let filteredByCategory = selectedCategoryId == "all" ? eventsList : eventsList.filter { $0.categories.first?.id == selectedCategoryId }
+            
+        switch (selectedEventsStatus) {
+            case "On going":
+                return filteredByCategory.filter { $0.closed == nil }
+                
+            case "Finished":
+                return filteredByCategory.filter { $0.closed != nil }
+                
+            default:
+                return filteredByCategory
+        }
+    }
     
     init() {
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:MM:SS"
-    
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
         Task {
             do {
                 try await getEvents()
@@ -44,21 +60,16 @@ class ContentViewModel: ObservableObject, listsData {
         
         self.categoriesList = try JSONDecoder().decode(CategoryResponse.self, from: data).categories
         self.categoriesList.insert(Category(id: "all", title: "All categories", description: "All categories", link: "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=\(eventsLimit)"), at: 0)
-        self.selectedCategory = "all"
+        self.selectedCategoryId = "all"
     }
     
-    var filteredEvents: [Event] {
-        let filteredByCategory = selectedCategory == "all" ? eventsList : eventsList.filter { $0.categories.first?.id == selectedCategory }
-            
-        switch (selectedEventsStatus) {
-            case "On going":
-                return filteredByCategory.filter { $0.closed == nil }
-                
-            case "Finished":
-                return filteredByCategory.filter { $0.closed != nil }
-                
-            default:
-                return filteredByCategory
-        }
+    func getCategoryById(categoryId: String) -> Category? {
+        return categoriesList.filter { $0.id == categoryId }.first
+    }
+    
+    func getFormattedDate(date: String) -> Date? {
+        dateFormatter.dateFormat = "dd/MM/yyyy | HH:mm:ss"
+        
+        return dateFormatter.date(from: date)
     }
 }
