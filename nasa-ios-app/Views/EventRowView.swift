@@ -5,7 +5,7 @@ struct EventRowView: View {
     
     var body: some View {
         HStack {
-            Image("hurricane")
+            Image(event.categories.first!.id)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 30, height: 30)
