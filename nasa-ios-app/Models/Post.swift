@@ -7,6 +7,20 @@ struct Post: Decodable {
     var date: String
     var url: String
 }
+class LocationData: ObservableObject, Identifiable {
+    static let shared = LocationData()
+    
+    let id = UUID()
+    @Published var latitude: Double
+    @Published var longitude: Double
+        
+    private init() {
+        latitude = 38.76857711768943
+        longitude = -9.160021831225064
+    }
+    
+}
+
 enum MyError: Error {
     case customError
 }
@@ -19,6 +33,7 @@ class loadData: ObservableObject {
         }
     }
     
+    
     var url: URL
     
     init(url: String) {
@@ -28,7 +43,7 @@ class loadData: ObservableObject {
     }
     
     func composeURL(){
-        self.url = URL(string: "https://api.nasa.gov/planetary/earth/assets?lon=100.75&lat=1.5&date=\(date.dataFormatada())&dim=0.15&api_key=KDkQL7vGfDSGqKiPKUFUp756bwoIL1apHrc5pwQu")!
+        self.url = URL(string: "https://api.nasa.gov/planetary/earth/assets?lon=\("\(LocationData.shared.longitude)")&lat=\("\(LocationData.shared.latitude)")&date=\(date.dataFormatada())&dim=0.15&api_key=KDkQL7vGfDSGqKiPKUFUp756bwoIL1apHrc5pwQu")!
         print(self.url)
     }
     

@@ -57,10 +57,10 @@
 		5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */ = {
 			isa = PBXGroup;
 			children = (
-				575CEE312A30BDA8004A7203 /* Post.swift */,
 				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
 				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 				575CEE352A310A48004A7203 /* MapView.swift */,
+				57FEFD1F2A3A139900BB1E68 /* Models */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
 				5750AFD52A1E4D7F004391C6 /* Preview Content */,
 				575CEE332A30F552004A7203 /* utils.swift */,
@@ -74,6 +74,14 @@
 				5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		57FEFD1F2A3A139900BB1E68 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				575CEE312A30BDA8004A7203 /* Post.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +289,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"nasa-ios-app/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,6 +319,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"nasa-ios-app/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

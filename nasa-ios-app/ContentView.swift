@@ -9,12 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    
-    
-    
     @StateObject var load = loadData(url: "https://api.nasa.gov/planetary/earth/")
     @State var imageUrl = ""
-    
+    @State var latitude: Double = 38.76857711768943
+    @State var longitude: Double = -9.160021831225064
     var body: some View {
         NavigationView{
             VStack {
@@ -42,6 +40,14 @@ struct ContentView: View {
                     ProgressView()
                 }.frame(width: 350, height: 350)
                 Spacer()
+                
+                Button{
+                    
+                }label: {
+                    Text ("SEARCH")
+                }
+                
+                Spacer().frame(width: 350, height: 50)
                 
                 Button{
                     
