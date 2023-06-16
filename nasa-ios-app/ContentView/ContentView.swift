@@ -39,10 +39,19 @@ struct ContentView: View {
                             }
                             
                             Picker("Category", selection: $viewModel.selectedCategoryId) {
-                                ForEach(viewModel.categoriesList, id: \.id) {
-                                    Text($0.title).tag($0.id)
+                                ForEach(viewModel.categoriesList) { category in
+                                    HStack {
+                                        Image(category.id)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 30, height: 30)
+                                        
+                                        Text(category.title)
+                                   }
+                                    .tag(category.id)
                                 }
                             }
+                            .pickerStyle(.navigationLink)
                         }
                     
                         Picker("Status", selection: $viewModel.selectedEventsStatus) {

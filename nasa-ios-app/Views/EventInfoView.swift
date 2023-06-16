@@ -30,7 +30,7 @@ struct EventInfoView: View {
                 Text("Start date")
                     .bold()
         
-                Text("12 Jun 2023 | 15:15:20")
+                Text(event.geometry.first!.date)
                 
                 Spacer()
                     .frame(height: 10)
@@ -47,7 +47,7 @@ struct EventInfoView: View {
                     .bold()
  
                 if let country = country {
-                    Text("\(city != nil ? "\(country), \(city ?? "")" : country)")
+                    Text("\(city != nil ? "\(city ?? ""), " : "")\(country)")
   
                 } else {
                    Text("Not available")
@@ -60,13 +60,12 @@ struct EventInfoView: View {
                }
             }
             .navigationTitle(event.title)
-            .navigationBarTitleDisplayMode(.automatic)
         }
     }
 }
 
 func getCityAndCountryFromCoordinates(coordinates: [Double], completion: @escaping (String?, String?) -> Void) {
-    let location = CLLocation(latitude: coordinates.first!, longitude: coordinates.last!)
+    let location = CLLocation(latitude: coordinates.last!, longitude: coordinates.first!)
     let geocoder = CLGeocoder()
     
     geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
@@ -163,7 +162,6 @@ struct MapView: UIViewRepresentable {
                 if annotationView == nil {
                     annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
                     annotationView?.canShowCallout = true
-                    annotationView?.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
                     
                 } else {
                     annotationView?.annotation = annotation
@@ -172,6 +170,8 @@ struct MapView: UIViewRepresentable {
                 if let customAnnotation = annotation as? CustomAnnotation {
                     annotationView?.image = UIImage(named: customAnnotation.categoryId)
                 }
+            
+                annotationView?.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
 
                 return annotationView
             }
