@@ -3,14 +3,13 @@ import SwiftUI
 class ContentViewModel: ObservableObject, listsData {
     @Published var eventsList: Events = []
     @Published var categoriesList: Categories = []
-    @Published var selectedCategoryId: Category.ID = "all"
+    @Published var selectedCategoryId: Category.ID = "all" as Category.ID
     @Published var selectedEventsStatus: String = "On going"
     @Published var isShowingCategoryInfo = false
     @Published var isShowingLoadingDialog = true
     
-    let eventsLimit = 30
+    let eventsLimit = 20 // max until fix geomtry error = 2000
     let eventsStatus: [String] = ["On going", "Finished", "All"]
-    let dateFormatter = DateFormatter()
     
     var filteredEvents: [Event] {
         let filteredByCategory = selectedCategoryId == "all" ? eventsList : eventsList.filter { $0.categories.first?.id == selectedCategoryId }
@@ -28,9 +27,6 @@ class ContentViewModel: ObservableObject, listsData {
     }
     
     init() {
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        
         Task {
             do {
                 try await getEvents()
@@ -68,12 +64,6 @@ class ContentViewModel: ObservableObject, listsData {
     
     func getCategoryById(categoryId: String) -> Category? {
         return categoriesList.filter { $0.id == categoryId }.first
-    }
-    
-    func getFormattedDate(date: String) -> Date? {
-        dateFormatter.dateFormat = "dd/MM/yyyy | HH:mm:ss"
-        
-        return dateFormatter.date(from: date)
     }
 }
 

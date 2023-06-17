@@ -15,6 +15,7 @@
 		5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AFD12A1E4D7E004391C6 /* ContentView.swift */; };
 		5750AFD42A1E4D7F004391C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD32A1E4D7F004391C6 /* Assets.xcassets */; };
 		5750AFD72A1E4D7F004391C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */; };
+		5799B2682A3DA4C600034158 /* EventInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */; };
 		57A725472A30ADC000B5C9CC /* Archive.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57A725462A30ADBF00B5C9CC /* Archive.zip */; };
 		57A725492A30B28D00B5C9CC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725482A30B28D00B5C9CC /* Category.swift */; };
 		57A725672A30E84100B5C9CC /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725662A30E84100B5C9CC /* ContentViewModel.swift */; };
@@ -31,6 +32,7 @@
 		5750AFD12A1E4D7E004391C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5750AFD32A1E4D7F004391C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5750AFD62A1E4D7F004391C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoViewModel.swift; sourceTree = "<group>"; };
 		57A725462A30ADBF00B5C9CC /* Archive.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Archive.zip; sourceTree = "<group>"; };
 		57A725482A30B28D00B5C9CC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		57A725662A30E84100B5C9CC /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -60,8 +62,8 @@
 		573D47582A3309A4008A6E9B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				573316B62A2F49D400337FBD /* EventRowView.swift */,
-				573D47592A3309B3008A6E9B /* EventInfoView.swift */,
+				57A725652A30E81F00B5C9CC /* ContentView */,
+				5799B2692A3DADAA00034158 /* EventInfoView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -87,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				573D47582A3309A4008A6E9B /* Views */,
-				57A725652A30E81F00B5C9CC /* ContentView */,
 				5721A2ED2A2E3C63003CBDC6 /* Models */,
 				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
@@ -106,11 +107,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		5799B2692A3DADAA00034158 /* EventInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				573D47592A3309B3008A6E9B /* EventInfoView.swift */,
+				5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */,
+			);
+			path = EventInfoView;
+			sourceTree = "<group>";
+		};
 		57A725652A30E81F00B5C9CC /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 				57A725662A30E84100B5C9CC /* ContentViewModel.swift */,
+				573316B62A2F49D400337FBD /* EventRowView.swift */,
+				5750AFD12A1E4D7E004391C6 /* ContentView.swift */,
 			);
 			path = ContentView;
 			sourceTree = "<group>";
@@ -193,6 +204,7 @@
 				573D475A2A3309B3008A6E9B /* EventInfoView.swift in Sources */,
 				57A725672A30E84100B5C9CC /* ContentViewModel.swift in Sources */,
 				5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */,
+				5799B2682A3DA4C600034158 /* EventInfoViewModel.swift in Sources */,
 				5750AFD02A1E4D7E004391C6 /* nasa_ios_appApp.swift in Sources */,
 				573316B72A2F49D400337FBD /* EventRowView.swift in Sources */,
 			);
@@ -330,7 +342,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -359,7 +371,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

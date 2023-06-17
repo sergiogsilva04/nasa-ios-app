@@ -7,9 +7,9 @@ struct ContentView: View {
         LoadingView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
             NavigationView {
                 VStack {
-                    Text("Natural Event tracker")
+                    Text("Natural Event Tracker")
                         .font(.system(size: 35))
-                    
+        
                     VStack {
                         HStack {
                             Button(action: {
@@ -25,9 +25,9 @@ struct ContentView: View {
                                        .frame(width: 40, height: 5)
                                        .cornerRadius(2.5)
                                        .foregroundColor(Color.secondary)
-                                 
+                        
                                     let selectedCategory = viewModel.getCategoryById(categoryId: viewModel.selectedCategoryId)
-
+                                
                                     Text(selectedCategory?.title ?? "Category")
                                         .font(.title)
                                         .padding(.bottom, 5)
@@ -52,6 +52,7 @@ struct ContentView: View {
                                 }
                             }
                             .pickerStyle(.navigationLink)
+                            .foregroundColor(.black)
                         }
                     
                         Picker("Status", selection: $viewModel.selectedEventsStatus) {
@@ -64,17 +65,37 @@ struct ContentView: View {
                     
                     Spacer(minLength: 20)
                     
-                    List(viewModel.filteredEvents) { event in
-                        NavigationLink {
-                            EventInfoView(event: event)
+                    if (viewModel.filteredEvents.isEmpty) {
+                        VStack {
+                            Image(systemName: "exclamationmark.circle")
+                                .font(.largeTitle)
                             
-                        } label: {
-                            EventRowView(event: event)
+                            Text("No Results Found")
+                                .font(.title)
+                            
+                            Text("Try adjusting your filter criteria.")
+                                .font(.body)
                         }
-                        .listRowBackground(event.closed == nil ? Color.green : Color.red)
+                        .foregroundColor(.gray)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        
+                        Spacer()
+                        
+                    } else {
+                        List(viewModel.filteredEvents) { event in
+                            NavigationLink {
+                                EventInfoView(event: event)
+                                
+                            } label: {
+                                EventRowView(event: event)
+                            }
+                            .listRowBackground(event.closed == nil ? Color.green : Color.red)
+                    
+                        }
+                        .cornerRadius(15)
+                        .listStyle(.plain)
                     }
-                    .cornerRadius(15)
-                    .listStyle(.plain)
                 }
             }
             .padding(15)
