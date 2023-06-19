@@ -142,7 +142,7 @@ class EventInfoViewModel: ObservableObject {
             
             var span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.5, longitudeDelta: (maxLon - minLon) * 1.5)
             
-            if geometries.count <= 2 {
+            if (geometries.count <= 2) {
                 span = MKCoordinateSpan(latitudeDelta: maxLat / minLat, longitudeDelta: maxLon / minLon)
             }
             
@@ -157,7 +157,7 @@ class EventInfoViewModel: ObservableObject {
                     let reuseIdentifier = "customPin"
                     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
 
-                    if annotationView == nil {
+                    if (annotationView == nil) {
                         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
                         annotationView?.canShowCallout = true
                         

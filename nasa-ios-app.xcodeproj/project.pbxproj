@@ -71,7 +71,6 @@
 		5750AFC32A1E4D7E004391C6 = {
 			isa = PBXGroup;
 			children = (
-				5721A2F62A2E44BB003CBDC6 /* TODO.rtf */,
 				5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */,
 				5750AFCD2A1E4D7E004391C6 /* Products */,
 			);
@@ -88,6 +87,7 @@
 		5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */ = {
 			isa = PBXGroup;
 			children = (
+				5721A2F62A2E44BB003CBDC6 /* TODO.rtf */,
 				573D47582A3309A4008A6E9B /* Views */,
 				5721A2ED2A2E3C63003CBDC6 /* Models */,
 				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,

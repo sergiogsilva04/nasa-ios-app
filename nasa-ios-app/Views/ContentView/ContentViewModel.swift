@@ -1,12 +1,14 @@
 import SwiftUI
+import Network
 
 class ContentViewModel: ObservableObject, listsData {
     @Published var eventsList: Events = []
     @Published var categoriesList: Categories = []
     @Published var selectedCategoryId: Category.ID = "all" as Category.ID
     @Published var selectedEventsStatus: String = "On going"
-    @Published var isShowingCategoryInfo = false
+    @Published var isShowingCategoryInfoDialog = false
     @Published var isShowingLoadingDialog = true
+    @Published var isShowingNetworkDialog = false
     
     let eventsLimit = 20 // max until fix geomtry error = 2000
     let eventsStatus: [String] = ["On going", "Finished", "All"]
@@ -27,18 +29,43 @@ class ContentViewModel: ObservableObject, listsData {
     }
     
     init() {
-        Task {
-            do {
-                try await getEvents()
-                try await getCategories()
-                
-                isShowingLoadingDialog = false
-                
-            } catch {
-                print(error)
+        getData()
+    }
+
+    func getData() {
+        if (checkInternetAvailability()) {
+            Task {
+                do {
+                    try await getEvents()
+                    try await getCategories()
+                    
+                    isShowingLoadingDialog = false
+                } catch {
+                    print(error)
+                }
             }
         }
     }
+    
+    func checkInternetAvailability() -> Bool {
+        let monitor = NWPathMonitor()
+        let semaphore = DispatchSemaphore(value: 0)
+
+        var isConnected = false
+
+        monitor.pathUpdateHandler = { path in
+            isConnected = path.status == .satisfied
+            semaphore.signal()
+        }
+
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
+
+        semaphore.wait()
+        
+        return isConnected
+    }
+
     
     func getEvents() async throws {
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=\(eventsLimit)")!))
