@@ -1,15 +1,15 @@
 import SwiftUI
 
-struct ContentView: View {
-    @StateObject var viewModel = ContentViewModel()
+struct EventsView: View {
+    @StateObject var viewModel = EventsViewModel()
 
     var body: some View {
         VStack {
-            if (viewModel.checkInternetAvailability()) {
+            if (Common.checkInternetAvailability()) {
                 LoadingView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
                     NavigationView {
                         VStack {
-                            Text("Natural Event Tracker")
+                            Text("Natural Event Track")
                                 .font(.system(size: 35))
                 
                             VStack {
@@ -131,8 +131,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct EventsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        EventsView()
     }
 }

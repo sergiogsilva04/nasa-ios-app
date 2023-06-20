@@ -1,7 +1,6 @@
 import SwiftUI
-import Network
 
-class ContentViewModel: ObservableObject, listsData {
+class EventsViewModel: ObservableObject, listsData {
     @Published var eventsList: Events = []
     @Published var categoriesList: Categories = []
     @Published var selectedCategoryId: Category.ID = "all" as Category.ID
@@ -33,40 +32,21 @@ class ContentViewModel: ObservableObject, listsData {
     }
 
     func getData() {
-        if (checkInternetAvailability()) {
+        if (Common.checkInternetAvailability()) {
             Task {
                 do {
                     try await getEvents()
                     try await getCategories()
                     
                     isShowingLoadingDialog = false
+                    
                 } catch {
                     print(error)
                 }
             }
         }
     }
-    
-    func checkInternetAvailability() -> Bool {
-        let monitor = NWPathMonitor()
-        let semaphore = DispatchSemaphore(value: 0)
 
-        var isConnected = false
-
-        monitor.pathUpdateHandler = { path in
-            isConnected = path.status == .satisfied
-            semaphore.signal()
-        }
-
-        let queue = DispatchQueue(label: "NetworkMonitor")
-        monitor.start(queue: queue)
-
-        semaphore.wait()
-        
-        return isConnected
-    }
-
-    
     func getEvents() async throws {
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=\(eventsLimit)")!))
         
@@ -92,46 +72,4 @@ class ContentViewModel: ObservableObject, listsData {
     func getCategoryById(categoryId: String) -> Category? {
         return categoriesList.filter { $0.id == categoryId }.first
     }
-}
-
-struct ActivityIndicator: UIViewRepresentable {
-
-    @Binding var isAnimating: Bool
-    let style: UIActivityIndicatorView.Style
-
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView(style: style)
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
-    }
-}
-
-struct LoadingView<Content>: View where Content: View {
-    @Binding var isShowing: Bool
-    var content: () -> Content
-
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                self.content()
-                    .disabled(self.isShowing)
-                    .blur(radius: self.isShowing ? 3 : 0)
-
-                VStack {
-                    Text("Loading...")
-                    
-                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                }
-                .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
-                .background(.white)
-                .foregroundColor(.black)
-                .cornerRadius(20)
-                .opacity(self.isShowing ? 1 : 0)
-                .shadow(radius: 15)
-            }
-        }
-    }
-
 }
