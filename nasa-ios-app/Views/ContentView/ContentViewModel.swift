@@ -44,6 +44,27 @@ class ContentViewModel: ObservableObject {
     }
 }
 
+func getRandomPost() async throws {
+    func randomDateBetween(startDate: Calendar.cu, endDate: Date) -> Date? {
+        // Check if the start date is later than the end date
+        guard startDate < endDate else {
+            return nil
+        }
+        
+        // Get the start and end date's time intervals
+        let startInterval = startDate.timeIntervalSince1970
+        let endInterval = endDate.timeIntervalSince1970
+        
+        // Generate a random time interval within the range
+        let randomInterval = TimeInterval.random(in: startInterval...endInterval)
+        
+        // Create a date using the random interval
+        let randomDate = Date(timeIntervalSince1970: randomInterval)
+        
+        return randomDate
+    }
+}
+
 class LocationData: ObservableObject, Identifiable {
     static let shared = LocationData()
     
