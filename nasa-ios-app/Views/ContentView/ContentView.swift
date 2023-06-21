@@ -8,85 +8,63 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ContentViewModel()
     
-    @StateObject var load = loadData(url: "https://api.nasa.gov/planetary/earth/")
-    @State var imageUrl = ""
-    @State var latitude: Double = 38.76857711768943
-    @State var longitude: Double = -9.160021831225064
-    let dateRange: ClosedRange<Date> = {
-            let calendar = Calendar.current
-            let startDateComponents = DateComponents(year: 2013, month: 3, day: 1)
-            let endDateComponents = DateComponents(year: 2021, month: 12, day: 25)
-            
-        return calendar.date(from: startDateComponents)!...calendar.date(from: endDateComponents)!
-        }()
     var body: some View {
         NavigationView{
             VStack {
-                Text("Hello, miguel!")
-                Spacer()
                 
-                HStack {
-                    Spacer().frame(width: 180)
-                    NavigationLink(destination: MapView()) {
-                                        Image("mapIcon")
-                                            .resizable()
-                                            .frame(width: 50, height: 40)
-                                    }
-                    DatePicker("", selection: $load.date, in: dateRange, displayedComponents: .date)
-                    Spacer().frame(width: 100)
-                }
-                
-                AsyncImage(url: URL(string: imageUrl)){ image in
+                    Text("Hello, miguel!")
+                    Spacer()
+                        .frame(height: 100)
                     
-                    image.resizable()
-                        .scaledToFit()
-                        .frame(width: 350, height: 350)
+                    HStack {
+                        Spacer().frame(width: 180)
+                        NavigationLink(destination: MapView()) {
+                                            Image("mapIcon")
+                                                .resizable()
+                                                .frame(width: 50, height: 40)
+                                        }
+                        DatePicker("", selection: $viewModel.currentDate, in: viewModel.dateRange, displayedComponents: .date)
+                        Spacer().frame(width: 100)
+                    }
+                    Spacer()
                     
-                }placeholder: {
-                    ProgressView()
-                }.frame(width: 350, height: 350)
-                Spacer()
-                
-                Button{
-                    Task{
-                        do {
-                            imageUrl = ""
-                            if let res = try await load.loadAsync() {imageUrl = res.url}
+                    if let post = viewModel.post {
+                    if let url = URL(string: post.url) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350)
                             
-                        } catch {
-                            print("Erro")
+                        } placeholder: {
+                            ProgressView()
                         }
-                        
-                    }//Task
-                }label: {
-                    Text ("SEARCH")
-                }
+                        .frame(width: 300, height: 300)
+                        }
+                    }
                 
-                Spacer().frame(width: 350, height: 50)
-                
-                Button{
+                    Spacer()
                     
-                }label: {
-                    Text ("RANDOM")
-                }
-                Spacer().frame(width: 350, height: 50)
-                
-            }.onAppear{
-                Task{
-                    do {
+                    Button {
+                        viewModel.post?.url = ""
+                        viewModel.getData()
                         
-                        if let res = try await load.loadAsync() {imageUrl = res.url}
-                        
-                    } catch {
-                        print("Erro")
+                    } label: {
+                        Text ("SEARCH")
                     }
                     
-                }//Task
-            }//onAppear
-            .onChange(of: load.date) { newValue in
-                
-            }
+                    Spacer().frame(width: 350, height: 50)
+                    
+                    Button{
+                        
+                    }label: {
+                        Text ("RANDOM")
+                    }
+                    Spacer().frame(width: 350, height: 50)
+                }
+            
         }
     }
 }
