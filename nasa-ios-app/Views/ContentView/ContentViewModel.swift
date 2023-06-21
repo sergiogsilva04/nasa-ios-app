@@ -51,7 +51,7 @@ class LocationData: ObservableObject, Identifiable {
     @Published var latitude: Double
     @Published var longitude: Double
         
-    private init() {
+    init() {
         latitude = 38.76857711768943
         longitude = -9.160021831225064
     }

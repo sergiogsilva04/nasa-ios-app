@@ -16,6 +16,7 @@
 		575CEE362A310A48004A7203 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575CEE352A310A48004A7203 /* MapView.swift */; };
 		576D89972A432C0E00C35BC5 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D89962A432C0E00C35BC5 /* ContentViewModel.swift */; };
 		576D89992A432C3200C35BC5 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D89982A432C3200C35BC5 /* MapViewModel.swift */; };
+		576D899B2A435BBF00C35BC5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D899A2A435BBF00C35BC5 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		575CEE352A310A48004A7203 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		576D89962A432C0E00C35BC5 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		576D89982A432C3200C35BC5 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		576D899A2A435BBF00C35BC5 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				575CEE312A30BDA8004A7203 /* Post.swift */,
+				576D899A2A435BBF00C35BC5 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				5750AFD22A1E4D7E004391C6 /* ContentView.swift in Sources */,
 				575CEE322A30BDA8004A7203 /* Post.swift in Sources */,
+				576D899B2A435BBF00C35BC5 /* Location.swift in Sources */,
 				576D89972A432C0E00C35BC5 /* ContentViewModel.swift in Sources */,
 				575CEE362A310A48004A7203 /* MapView.swift in Sources */,
 				576D89992A432C3200C35BC5 /* MapViewModel.swift in Sources */,
