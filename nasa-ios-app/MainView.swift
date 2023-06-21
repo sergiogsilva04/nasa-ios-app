@@ -15,7 +15,7 @@ struct MainView: View {
                 APODView()
                 
             } label: {
-                Text("Eventos")
+                Text("APOD")
                     .foregroundColor(.black)
             }
         }

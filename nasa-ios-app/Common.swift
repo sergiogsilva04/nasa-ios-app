@@ -40,25 +40,23 @@ struct LoadingView<Content>: View where Content: View {
     var content: () -> Content
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                self.content()
-                    .disabled(self.isShowing)
-                    .blur(radius: self.isShowing ? 3 : 0)
-
+        ZStack {
+            content()
+                .disabled(isShowing)
+                .blur(radius: isShowing ? 3 : 0)
+            
+            if isShowing {
                 VStack {
                     Text("Loading...")
-                    
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                 }
-                .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
-                .background(.white)
+                .frame(width: 150, height: 150)
+                .background(Color.white)
                 .foregroundColor(.black)
-                .cornerRadius(20)
-                .opacity(self.isShowing ? 1 : 0)
+                .cornerRadius(25)
+                .opacity(1)
                 .shadow(radius: 15)
             }
         }
     }
 }
-

@@ -131,12 +131,12 @@
 		5750AFCE2A1E4D7E004391C6 /* nasa-ios-app */ = {
 			isa = PBXGroup;
 			children = (
+				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
 				5739CF992A42095C00E65B57 /* MainView.swift */,
 				5739CFA32A42150300E65B57 /* Common.swift */,
 				5739CF982A42091100E65B57 /* APOD */,
 				5739CF972A42086600E65B57 /* EONET */,
 				5721A2F62A2E44BB003CBDC6 /* TODO.rtf */,
-				5750AFCF2A1E4D7E004391C6 /* nasa_ios_appApp.swift */,
 				5750AFD32A1E4D7F004391C6 /* Assets.xcassets */,
 				5750AFD52A1E4D7F004391C6 /* Preview Content */,
 			);

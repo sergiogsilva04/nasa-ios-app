@@ -2,11 +2,11 @@ import SwiftUI
 
 class APODViewModel: ObservableObject {
     @Published var apod: APOD? = nil
-    @Published var isShowingLoadingDialog = true
+    @Published var isShowingLoadingDialog = false
     @Published var isShowingNetworkDialog = false
     @Published var currentDate = Date() {
         didSet {
-            getData()
+            self.getData()
         }
     }
     
@@ -20,33 +20,67 @@ class APODViewModel: ObservableObject {
     let formatter = DateFormatter()
 
     init() {
-        formatter.dateFormat = "yyyy-MM-dd"
+        self.formatter.dateFormat = "yyyy-MM-dd"
 
-        getData()
+        self.getData()
     }
 
-    func getData() {
+    func getData(random: Bool = false) {
         if (Common.checkInternetAvailability()) {
+            self.isShowingLoadingDialog = true
+            
             Task {
                 do {
-                    try await getAPOD()
+                    print("before getapod")
+                    try await self.getAPOD(random: random)
                     
-                    isShowingLoadingDialog = false
+                    self.isShowingLoadingDialog = false
+                    print("after getapod")
                     
                 } catch {
-                    print(error)
+                    self.isShowingLoadingDialog = false
+                    print("Erro: \(error)")
                 }
             }
         }
     }
 
-    func getAPOD() async throws {
-        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://api.nasa.gov/planetary/apod?api_key=\(API_KEY)&date=\(formatter.string(from: currentDate))")!))
+    func getAPOD(random: Bool = false) async throws {
+        print("started getapod")
+        var url = "https://api.nasa.gov/planetary/apod?api_key=\(self.API_KEY)"
+
+        url.append(random ? "&count=1" : "&date=\(self.formatter.string(from: self.currentDate))")
+        
+        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: url)!))
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            fatalError("Error loading apod")
+            print("error loading post")
+            
+            return
         }
-
-        self.apod = try JSONDecoder().decode(APOD.self, from: data)
+        
+        let decoder = JSONDecoder()
+        
+        if (random) {
+            self.apod = try decoder.decode(APODS.self, from: data)[0]
+            self.currentDate = formatter.date(from: self.apod!.date)!
+            
+        } else {
+            self.apod = try decoder.decode(APOD.self, from: data)
+        }
+        
+        print("finished getapod")
+    }
+    
+    func isPreviousDayAvailable() -> Bool {
+        let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self.currentDate)
+        
+        return previousDate != nil && previousDate! <= self.dateRange.lowerBound
+    }
+        
+    func isNextDayAvailable() -> Bool {
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: self.currentDate)
+        
+        return nextDate != nil && nextDate! >= self.dateRange.upperBound
     }
 }

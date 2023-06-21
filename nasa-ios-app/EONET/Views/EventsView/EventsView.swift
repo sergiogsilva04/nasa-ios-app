@@ -26,7 +26,7 @@ struct EventsView: View {
                                             Rectangle()
                                                .frame(width: 40, height: 5)
                                                .cornerRadius(2.5)
-                                               .foregroundColor(Color.secondary)
+                                               .foregroundColor(.secondary)
                                 
                                             let selectedCategory = viewModel.getCategoryById(categoryId: viewModel.selectedCategoryId)
                                         

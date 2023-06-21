@@ -111,7 +111,7 @@ class EventInfoViewModel: ObservableObject {
             Coordinator()
         }
 
-        private func addPins(for geometries: [Geometry], mapView: MKMapView) {
+        func addPins(for geometries: [Geometry], mapView: MKMapView) {
             for geometry in geometries {
                 let annotation = CustomAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: geometry.coordinates.last!, longitude: geometry.coordinates.first!)
@@ -120,7 +120,7 @@ class EventInfoViewModel: ObservableObject {
             }
         }
 
-        private func setMapRegion(for geometries: [Geometry], mapView: MKMapView) {
+        func setMapRegion(for geometries: [Geometry], mapView: MKMapView) {
             var minLat = Double.greatestFiniteMagnitude
             var maxLat = -Double.greatestFiniteMagnitude
             var minLon = Double.greatestFiniteMagnitude
