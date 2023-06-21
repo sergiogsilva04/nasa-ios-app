@@ -13,6 +13,13 @@ struct ContentView: View {
     @State var imageUrl = ""
     @State var latitude: Double = 38.76857711768943
     @State var longitude: Double = -9.160021831225064
+    let dateRange: ClosedRange<Date> = {
+            let calendar = Calendar.current
+            let startDateComponents = DateComponents(year: 2013, month: 3, day: 1)
+            let endDateComponents = DateComponents(year: 2021, month: 12, day: 25)
+            
+        return calendar.date(from: startDateComponents)!...calendar.date(from: endDateComponents)!
+        }()
     var body: some View {
         NavigationView{
             VStack {
@@ -26,7 +33,7 @@ struct ContentView: View {
                                             .resizable()
                                             .frame(width: 50, height: 40)
                                     }
-                    DatePicker("", selection: $load.date, in: ...Date(), displayedComponents: .date)
+                    DatePicker("", selection: $load.date, in: dateRange, displayedComponents: .date)
                     Spacer().frame(width: 100)
                 }
                 
@@ -42,7 +49,16 @@ struct ContentView: View {
                 Spacer()
                 
                 Button{
-                    
+                    Task{
+                        do {
+                            imageUrl = ""
+                            if let res = try await load.loadAsync() {imageUrl = res.url}
+                            
+                        } catch {
+                            print("Erro")
+                        }
+                        
+                    }//Task
                 }label: {
                     Text ("SEARCH")
                 }
@@ -69,16 +85,7 @@ struct ContentView: View {
                 }//Task
             }//onAppear
             .onChange(of: load.date) { newValue in
-                Task{
-                    do {
-                        imageUrl = ""
-                        if let res = try await load.loadAsync() {imageUrl = res.url}
-                        
-                    } catch {
-                        print("Erro")
-                    }
-                    
-                }//Task
+                
             }
         }
     }
