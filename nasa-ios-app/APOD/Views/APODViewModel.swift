@@ -4,6 +4,7 @@ class APODViewModel: ObservableObject {
     @Published var apod: APOD? = nil
     @Published var isShowingLoadingDialog = false
     @Published var isShowingNetworkDialog = false
+    @Published var currentMediaType = ""
     @Published var currentDate = Date() {
         didSet {
             self.getData()
@@ -68,6 +69,8 @@ class APODViewModel: ObservableObject {
         } else {
             self.apod = try decoder.decode(APOD.self, from: data)
         }
+        
+        currentMediaType = apod!.media_type
         
         print("finished getapod")
     }
