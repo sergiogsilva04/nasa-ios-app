@@ -4,9 +4,11 @@ class APODViewModel: ObservableObject {
     @Published var apod: APOD? = nil
     @Published var isShowingLoadingDialog = false
     @Published var isShowingNetworkDialog = false
-    @Published var currentMediaType = ""
+    @Published var currentMediaType: ApodMediaType = .unknown
+    @Published var currentAsyncImageUrl = ""
     @Published var currentDate = Date() {
         didSet {
+            self.currentAsyncImageUrl = ""
             self.getData()
         }
     }
@@ -22,7 +24,6 @@ class APODViewModel: ObservableObject {
 
     init() {
         self.formatter.dateFormat = "yyyy-MM-dd"
-
         self.getData()
     }
 
@@ -32,11 +33,9 @@ class APODViewModel: ObservableObject {
             
             Task {
                 do {
-                    print("before getapod")
                     try await self.getAPOD(random: random)
                     
                     self.isShowingLoadingDialog = false
-                    print("after getapod")
                     
                 } catch {
                     self.isShowingLoadingDialog = false
@@ -47,7 +46,6 @@ class APODViewModel: ObservableObject {
     }
 
     func getAPOD(random: Bool = false) async throws {
-        print("started getapod")
         var url = "https://api.nasa.gov/planetary/apod?api_key=\(self.API_KEY)"
 
         url.append(random ? "&count=1" : "&date=\(self.formatter.string(from: self.currentDate))")
@@ -55,7 +53,17 @@ class APODViewModel: ObservableObject {
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: url)!))
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            print("error loading post")
+            let response = (response as? HTTPURLResponse)
+            
+            self.isShowingLoadingDialog = false
+            
+            if (response?.statusCode == 504) {
+                // TODO: MAKE A DIALOG AND ASK FOR RANDOM OR TODAY
+                print("erro 504")
+                
+            } else {
+                print("Error loading post: \(response!)")
+            }
             
             return
         }
@@ -69,10 +77,9 @@ class APODViewModel: ObservableObject {
         } else {
             self.apod = try decoder.decode(APOD.self, from: data)
         }
-        
-        currentMediaType = apod!.media_type
-        
-        print("finished getapod")
+ 
+        self.currentMediaType = ApodMediaType(rawValue: self.apod!.media_type) ?? .unknown
+        self.currentAsyncImageUrl = self.apod!.url
     }
     
     func isPreviousDayAvailable() -> Bool {

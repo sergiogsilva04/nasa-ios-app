@@ -1,6 +1,10 @@
 import SwiftUI
 import Network
 
+enum ApodMediaType: String {
+  case image, video, unknown
+}
+
 class Common {
     static func checkInternetAvailability() -> Bool {
         let monitor = NWPathMonitor()
@@ -51,7 +55,7 @@ struct LoadingView<Content>: View where Content: View {
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                 }
                 .frame(width: 150, height: 150)
-                .background(Color.white)
+                .background(.white)
                 .foregroundColor(.black)
                 .cornerRadius(25)
                 .opacity(1)

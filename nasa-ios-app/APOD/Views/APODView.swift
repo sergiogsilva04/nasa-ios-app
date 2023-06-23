@@ -20,7 +20,7 @@ struct Video: UIViewRepresentable {
 
 struct APODView: View {
     @StateObject var viewModel = APODViewModel()
-    @State var isLoading = true
+
     var body: some View {
         VStack{
             if (Common.checkInternetAvailability()) {
@@ -33,6 +33,8 @@ struct APODView: View {
                 LoadingView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
                     VStack {
                         if let apod = viewModel.apod {
+                            Spacer()
+                            
                             DatePicker("", selection: $viewModel.currentDate, in: viewModel.dateRange, displayedComponents: .date)
                                 .labelsHidden()
                             
@@ -46,32 +48,32 @@ struct APODView: View {
                                 }
                                 .disabled(viewModel.isPreviousDayAvailable())
                                 
-                                if (viewModel.currentMediaType == "image") {
-                                    if let url = URL(string: apod.url) {
-                                        AsyncImage(url: url) { image in
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                            
-                                        } placeholder: {
-                                            ProgressView()
+                                switch (viewModel.currentMediaType) {
+                                    case .image:
+                                        AsyncImage(url: URL(string: viewModel.currentAsyncImageUrl)) { phase in
+                                            if let image = phase.image {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .cornerRadius(15)
+                                                
+                                            } else if phase.error != nil {
+                                                Text("No image loaded")
+                                                
+                                            } else {
+                                                ProgressView()
+                                            }
                                         }
                                         .frame(width: 300, height: 300)
                                         
-                                    } else {
-                                        Text("Invalid image URL")
-                                            .padding()
+                                    case .video:
+                                        Video(videoUrl: apod.url)
                                             .frame(width: 300, height: 300)
-                                    }
-                                    
-                                } else if (viewModel.currentMediaType == "video") {
-                                    if (isLoading) {
-                                        ProgressView()
-                                    }
-                                    
-                                    Video(videoUrl: apod.url)
-                                        .frame(width: 300, height: 300)
-                                        .cornerRadius(15)
+                                            .cornerRadius(15)
+                                            
+                                    default:
+                                        Text("No media available")
+                                            .padding()
                                 }
 
                                 Button(action: {
@@ -94,7 +96,7 @@ struct APODView: View {
                             }
                             
                             Button("Random") {
-                                viewModel.apod?.url = ""
+                                viewModel.currentAsyncImageUrl = ""
                                 viewModel.getData(random: true)
                             }
                             .padding()

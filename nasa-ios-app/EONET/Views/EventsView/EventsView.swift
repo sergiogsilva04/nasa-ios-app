@@ -119,7 +119,7 @@ struct EventsView: View {
                 }) {
                     Text("Retry")
                         .padding()
-                        .background(Color.blue)
+                        .background(.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
