@@ -2,21 +2,23 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        NavigationStack {
-            NavigationLink {
-                EventsView()
+        NavigationView {
+            VStack {
+                NavigationLink {
+                    EventsView()
+                    
+                } label: {
+                    Text("Eventos")
+                        .foregroundColor(.black)
+                }
                 
-            } label: {
-                Text("Eventos")
-                    .foregroundColor(.black)
-            }
-            
-            NavigationLink {
-                APODView()
-                
-            } label: {
-                Text("APOD")
-                    .foregroundColor(.black)
+                NavigationLink {
+                    ApodView()
+                    
+                } label: {
+                    Text("APOD")
+                        .foregroundColor(.black)
+                }
             }
         }
     }

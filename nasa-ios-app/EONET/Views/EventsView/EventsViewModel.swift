@@ -5,30 +5,44 @@ class EventsViewModel: ObservableObject, listsData {
     @Published var categoriesList: Categories = []
     @Published var selectedCategoryId: Category.ID = "all" as Category.ID
     @Published var selectedEventsStatus: String = "On going"
-    @Published var isShowingCategoryInfoDialog = false
-    @Published var isShowingLoadingDialog = true
-    @Published var isShowingNetworkDialog = false
-    
-    let eventsLimit = 20 // max until fix geomtry error = 2000
+    @Published var isShowingCategoryInfoDialog: Bool = false
+    @Published var isShowingLoadingDialog: Bool = true
+    @Published var isShowingNetworkDialog: Bool = false
+    @Published var startDateFilter: Date = Calendar.current.date(from: DateComponents(year: 1980, month: 1, day: 10))!
+    @Published var endDateFilter: Date = Date()
+
+    let eventsLimit: Int = 20 // max until fix geomtry error = 2000
     let eventsStatus: [String] = ["On going", "Finished", "All"]
+    let dateFormatter: DateFormatter = DateFormatter()
+    let startDateFilterRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let startDateComponents = DateComponents(year: 1980, month: 1, day: 10)
+        
+        return calendar.date(from: startDateComponents)!...Date()
+    }()
     
     var filteredEvents: [Event] {
-        let filteredByCategory = selectedCategoryId == "all" ? eventsList : eventsList.filter { $0.categories.first?.id == selectedCategoryId }
+        var filteredList = selectedCategoryId == "all" ? eventsList : eventsList.filter { $0.categories.first?.id == selectedCategoryId }
+        
+        filteredList = filteredList.filter {
+            dateFormatter.date(from: $0.geometry.first!.date)! > startDateFilter && dateFormatter.date(from: $0.geometry.first!.date)! < endDateFilter
+        }
             
         switch (selectedEventsStatus) {
             case "On going":
-                return filteredByCategory.filter { $0.closed == nil }
+                return filteredList.filter { $0.closed == nil }
                 
             case "Finished":
-                return filteredByCategory.filter { $0.closed != nil }
+                return filteredList.filter { $0.closed != nil }
                 
             default:
-                return filteredByCategory
+                return filteredList
         }
     }
     
     init() {
-        getData()
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        self.getData()
     }
 
     func getData() {

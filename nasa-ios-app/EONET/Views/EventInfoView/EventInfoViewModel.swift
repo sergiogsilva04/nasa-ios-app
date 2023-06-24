@@ -44,7 +44,6 @@ class EventInfoViewModel: ObservableObject {
     
     func getFormattedDate(date: String) -> String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         if let date = dateFormatter.date(from: date) {
            //dateFormatter.dateFormat = "dd/MM/yyyy | HH:mm:ss"

@@ -1,6 +1,6 @@
 import Foundation
 
-struct APOD: Decodable {
+struct Apod: Decodable {
     var date: String
     var explanation: String
     var media_type: String
@@ -8,4 +8,4 @@ struct APOD: Decodable {
     var url: String
 }
 
-typealias APODS = [APOD]
+typealias Apods = [Apod]

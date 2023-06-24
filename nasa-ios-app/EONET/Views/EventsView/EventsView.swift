@@ -11,60 +11,62 @@ struct EventsView: View {
                         VStack {
                             Text("Natural Event Track")
                                 .font(.system(size: 35))
-                
-                            VStack {
-                                HStack {
-                                    Button(action: {
-                                        viewModel.isShowingCategoryInfoDialog = true
-                                    }) {
-                                        Image(systemName: "info.circle")
-                                    }
-                                    .disabled($viewModel.selectedCategoryId.wrappedValue == "all")
-                                    .foregroundColor($viewModel.selectedCategoryId.wrappedValue == "all" ? .gray : .blue)
-                                    .sheet(isPresented: $viewModel.isShowingCategoryInfoDialog) {
-                                        VStack {
-                                            Rectangle()
-                                               .frame(width: 40, height: 5)
-                                               .cornerRadius(2.5)
-                                               .foregroundColor(.secondary)
-                                
-                                            let selectedCategory = viewModel.getCategoryById(categoryId: viewModel.selectedCategoryId)
-                                        
-                                            Text(selectedCategory?.title ?? "Category")
-                                                .font(.title)
-                                                .padding(.bottom, 5)
-                                            
-                                            Text(selectedCategory?.description ?? "Description")
-                                        }
-                                        .padding()
-                                        .presentationDetents([.height(200)])
-                                    }
-                                    
-                                    Picker("Category", selection: $viewModel.selectedCategoryId) {
-                                        ForEach(viewModel.categoriesList) { category in
-                                            HStack {
-                                                Image(category.id)
-                                                    .resizable()
-                                                    .scaledToFill()
-                                                    .frame(width: 30, height: 30)
-                                                
-                                                Text(category.title)
-                                           }
-                                            .tag(category.id)
-                                        }
-                                    }
-                                    .padding(.bottom, 5)
-                                    .pickerStyle(.navigationLink)
-                                    .foregroundColor(.black)
+
+                            HStack {
+                                Button(action: {
+                                    viewModel.isShowingCategoryInfoDialog = true
+                                }) {
+                                    Image(systemName: "info.circle")
                                 }
+                                .disabled($viewModel.selectedCategoryId.wrappedValue == "all")
+                                .foregroundColor($viewModel.selectedCategoryId.wrappedValue == "all" ? .gray : .blue)
+                                .sheet(isPresented: $viewModel.isShowingCategoryInfoDialog) {
+                                    VStack {
+                                        Rectangle()
+                                           .frame(width: 40, height: 5)
+                                           .cornerRadius(2.5)
+                                           .foregroundColor(.secondary)
                             
-                                Picker("Status", selection: $viewModel.selectedEventsStatus) {
-                                    ForEach(viewModel.eventsStatus, id: \.self) {
-                                        Text($0)
+                                        let selectedCategory = viewModel.getCategoryById(categoryId: viewModel.selectedCategoryId)
+                                    
+                                        Text(selectedCategory?.title ?? "Category")
+                                            .font(.title)
+                                            .padding(.bottom, 5)
+                                        
+                                        Text(selectedCategory?.description ?? "Description")
+                                    }
+                                    .padding()
+                                    .presentationDetents([.height(200)])
+                                }
+                                
+                                Picker("Category", selection: $viewModel.selectedCategoryId) {
+                                    ForEach(viewModel.categoriesList) { category in
+                                        HStack {
+                                            Image(category.id)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 30, height: 30)
+                                            
+                                            Text(category.title)
+                                       }
+                                        .tag(category.id)
                                     }
                                 }
-                                .pickerStyle(.segmented)
+                                .padding(.bottom, 5)
+                                .pickerStyle(.navigationLink)
+                                .foregroundColor(.black)
                             }
+                        
+                            Picker("Status", selection: $viewModel.selectedEventsStatus) {
+                                ForEach(viewModel.eventsStatus, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(.segmented)
+                            
+                            DatePicker("Start Date", selection: $viewModel.startDateFilter, in: viewModel.startDateFilterRange, displayedComponents: .date)
+                            
+                            DatePicker("End Date", selection: $viewModel.endDateFilter, in: viewModel.startDateFilter...Date(), displayedComponents: .date)
                             
                             Spacer(minLength: 20)
                             
@@ -86,15 +88,14 @@ struct EventsView: View {
                                 Spacer()
                                 
                             } else {
-                                List(viewModel.filteredEvents) { event in
+                                List(viewModel.filteredEvents.lazy) { event in
                                     NavigationLink {
-                                        EventInfoView(event: event)
-                                        
-                                    } label: {
-                                        EventRowView(event: event)
-                                    }
-                                    .listRowBackground(event.closed == nil ? Color.green : Color.red)
-                            
+                                       EventInfoView(event: event)
+
+                                   } label: {
+                                       EventRowView(event: event)
+                                   }
+                                   .listRowBackground(event.closed == nil ? Color.green : Color.red)
                                 }
                                 .cornerRadius(15)
                                 .listStyle(.plain)
