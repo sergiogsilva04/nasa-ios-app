@@ -58,7 +58,16 @@ struct ContentView: View {
                     Spacer().frame(width: 350, height: 50)
                     
                     Button{
-                        
+                        Task {
+                                do {
+                                    try await viewModel.getRandomPost()
+                                    viewModel.post?.url = ""
+                                    viewModel.getData()
+                                } catch {
+                                    // Handle the error here
+                                    print("Error: \(error)")
+                                }
+                            }
                     }label: {
                         Text ("RANDOM")
                     }
