@@ -39,11 +39,12 @@ struct ApodView: View {
                                 .labelsHidden()
                             
                             HStack {
-                                Button(action: {
+                                Button {
                                     if let previousDay = Calendar.current.date(byAdding: .day, value: -1, to: viewModel.currentDate) {
                                         viewModel.currentDate = previousDay
                                     }
-                                }) {
+                                    
+                                } label: {
                                     Image(systemName: "chevron.left")
                                 }
                                 .disabled(viewModel.isPreviousDayAvailable())
@@ -70,18 +71,18 @@ struct ApodView: View {
                                         Video(videoUrl: apod.url)
                                             .frame(width: 300, height: 300)
                                             .cornerRadius(15)
-
-                                    
+                                      
                                     default:
                                         Text("No media available")
                                             .padding()
                                 }
 
-                                Button(action: {
+                                Button {
                                     if let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: viewModel.currentDate) {
                                         viewModel.currentDate = nextDay
                                     }
-                                }) {
+                                    
+                                } label: {
                                     Image(systemName: "chevron.right")
                                 }
                                 .disabled(viewModel.isNextDayAvailable())
@@ -102,7 +103,7 @@ struct ApodView: View {
                             .padding()
                             .font(.headline)
                             .foregroundColor(.white)
-                            .background(Color.blue)
+                            .background(.blue)
                             .cornerRadius(25)
                             .shadow(radius: 5)
                             .padding()
@@ -122,13 +123,12 @@ struct ApodView: View {
                 Text("No internet connection")
                 
                 Button("Retry") {
-                    print("checked internet")
                     viewModel.getData()
                 }
                 .padding()
                 .font(.headline)
                 .foregroundColor(.white)
-                .background(Color.blue)
+                .background(.blue)
                 .cornerRadius(25)
                 .shadow(radius: 5)
                 .padding()
