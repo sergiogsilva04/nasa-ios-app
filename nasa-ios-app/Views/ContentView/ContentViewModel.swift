@@ -44,34 +44,40 @@ class ContentViewModel: ObservableObject {
     }
     
     func getRandomPost() async throws {
+                    randomDateBetween(startDateComponents: DateComponents(year: 2013, month: 3, day: 1), endDateComponents: DateComponents(year: 2021, month: 12, day: 25))
+                    MapViewModel().getRandomLocation()
+                    getData()
+            
         
-        randomDateBetween(startDateComponents: DateComponents(year: 2013, month: 3, day: 1), endDateComponents: DateComponents(year: 2021, month: 12, day: 25))
         
     }
-}
-
-
-func randomDateBetween(startDateComponents: DateComponents, endDateComponents: DateComponents) {
-    // Check if the start date is later than the end date
-    guard let startDate = Calendar.current.date(from: startDateComponents),
-          let endDate = Calendar.current.date(from: endDateComponents),
-          startDate < endDate else {
-        return
+    
+    func randomDateBetween(startDateComponents: DateComponents, endDateComponents: DateComponents) {
+        // Check if the start date is later than the end date
+        guard let startDate = Calendar.current.date(from: startDateComponents),
+              let endDate = Calendar.current.date(from: endDateComponents),
+              startDate < endDate else {
+            return
+        }
+        
+        // Get the start and end date's time intervals
+        let startInterval = startDate.timeIntervalSince1970
+        let endInterval = endDate.timeIntervalSince1970
+        
+        // Generate a random time interval within the range
+        print((startInterval...endInterval))
+        
+        let randomInterval = TimeInterval.random(in:  (startInterval)...(endInterval))
+        print(randomInterval)
+        // Create a date using the random interval
+        let randomDate = Date(timeIntervalSince1970: randomInterval)
+        print(randomDate)
+        
+        
+        currentDate = randomDate
     }
     
-    // Get the start and end date's time intervals
-    let startInterval = startDate.timeIntervalSince1970
-    let endInterval = endDate.timeIntervalSince1970
-    
-    // Generate a random time interval within the range
-    let randomInterval = TimeInterval.random(in: startInterval...endInterval)
-    
-    // Create a date using the random interval
-    let randomDate = Date(timeIntervalSince1970: randomInterval)
-    
-    ContentViewModel().currentDate = randomDate
 }
-
 
 class LocationData: ObservableObject, Identifiable {
     static let shared = LocationData()

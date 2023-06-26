@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ContentViewModel()
+    @StateObject var mapViewModel = MapViewModel()
     
     var body: some View {
         NavigationView{
@@ -58,11 +59,10 @@ struct ContentView: View {
                     Spacer().frame(width: 350, height: 50)
                     
                     Button{
+                        viewModel.post?.url = ""
                         Task {
                                 do {
                                     try await viewModel.getRandomPost()
-                                    viewModel.post?.url = ""
-                                    viewModel.getData()
                                 } catch {
                                     // Handle the error here
                                     print("Error: \(error)")

@@ -39,6 +39,17 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
+    
+    func getRandomLocation() {
+            let latitudeDelta: CLLocationDegrees = 0.5
+            let longitudeDelta: CLLocationDegrees = 0.5
+            
+            let randomLatitude = Double.random(in: mapRegion.center.latitude - latitudeDelta...mapRegion.center.latitude + latitudeDelta)
+            let randomLongitude = Double.random(in: mapRegion.center.longitude - longitudeDelta...mapRegion.center.longitude + longitudeDelta)
+            
+            LocationData.shared.longitude = randomLongitude
+            LocationData.shared.latitude = randomLatitude
+        }
 }
 
 
