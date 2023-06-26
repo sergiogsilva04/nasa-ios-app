@@ -42,6 +42,20 @@ class EventInfoViewModel: ObservableObject {
         }
     }
     
+    var averageMagnitude: Double {
+        var sum: Double = 0
+        
+        eventGeometry.forEach { geomtry in
+            sum += geomtry.magnitudeValue ?? 0
+        }
+        
+        return sum / Double(eventGeometry.count)
+    }
+    
+    var magnitudeUnit: String {
+        event.geometry.first?.magnitudeUnit ?? ""
+    }
+    
     func getFormattedDate(date: String) -> String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 

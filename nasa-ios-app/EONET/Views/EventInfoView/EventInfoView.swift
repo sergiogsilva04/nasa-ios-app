@@ -40,7 +40,7 @@ struct EventInfoView: View {
                 Spacer()
 
                 VStack(alignment: .center) {
-                    Text("Start date")
+                    Text("Start at")
                         .bold()
                     
                     Text(viewModel.eventStartDate)
@@ -48,10 +48,22 @@ struct EventInfoView: View {
                 .padding(.bottom, 5)
                 
                 VStack(alignment: .center) {
-                    Text("End date")
+                    Text("End at")
                         .bold()
                     
                     Text(viewModel.eventClosed ?? "Not ended")
+                }
+                .padding(.bottom, 5)
+                
+                VStack(alignment: .center) {
+                    Text("Average magnitude")
+                        .bold()
+                    
+                    if (viewModel.eventGeometry.first != nil && viewModel.eventGeometry.first!.magnitudeUnit != nil) {
+                        
+                    } else {
+                        Text("Not available")
+                    }
                 }
                 .padding(.bottom, 5)
                 
