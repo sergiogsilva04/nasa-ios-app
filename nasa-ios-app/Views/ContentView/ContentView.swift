@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  nasa-ios-app
-//
-//  Created by Aluno ISTEC on 24/05/2023.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -14,10 +7,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack {
-                
-                    Text("Hello, miguel!")
+                HStack{
                     Spacer()
-                        .frame(height: 100)
+                    Text("Sou uma API da NASA onde é possivel ver imagens em satelite em varios dias e localizações diferentes, esperimenta para veres!!!")
+                    Spacer()
+                    }
+                    
+                    Spacer()
+                        .frame(height: 80)
                     
                     HStack {
                         Spacer().frame(width: 180)
@@ -26,6 +23,9 @@ struct ContentView: View {
                                                 .resizable()
                                                 .frame(width: 50, height: 40)
                                         }
+                        
+                        Spacer().frame(width: 50)
+                        
                         DatePicker("", selection: $viewModel.currentDate, in: viewModel.dateRange, displayedComponents: .date)
                         Spacer().frame(width: 100)
                     }
