@@ -5,15 +5,17 @@ class EpicViewModel: ObservableObject {
     @Published var currentImageIndex: Int = 0
     @Published var previousImageIndex: Int = 0
     @Published var nextImageIndex: Int = 1
-    @Published var isPlaying = 1
-    @Published var currentDate = Calendar.current.date(from: DateComponents(year: 2021, month: 12, day: 25))!
+    @Published var isPlaying: Bool = false
+    @Published var currentDate = Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+    var autoPlayTimer: Timer?
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
-        let startDateComponents = DateComponents(year: 2013, month: 3, day: 1)
-        let endDateComponents = DateComponents(year: 2021, month: 12, day: 25)
+        let endDate = calendar.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+        let startDateComponents = DateComponents(year: 2015, month: 10, day: 31)
+        let startDate = calendar.date(from: startDateComponents) ?? Date()
         
-        return calendar.date(from: startDateComponents)!...calendar.date(from: endDateComponents)!
+        return startDate...endDate
     }()
     
     init() {
@@ -34,7 +36,8 @@ class EpicViewModel: ObservableObject {
         }
     }
     func getPictures() async throws {
-        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://epic.gsfc.nasa.gov/api/natural/date/2015-10-31")!))
+        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://epic.gsfc.nasa.gov/api/natural/date/\(currentDate.dataFormatada())")!))
+        print(currentDate.dataFormatada())
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             print("Error loading post")
@@ -45,6 +48,8 @@ class EpicViewModel: ObservableObject {
         self.epic = try JSONDecoder().decode(Epics.self, from: data)
         self.currentImageIndex = 0
     }
+    
+    
     
     
     
@@ -94,21 +99,50 @@ class EpicViewModel: ObservableObject {
         
     }
     
-    func autoPlay() {
-        isPlaying = 1 // Assuming you have a variable named isPlaying
-        
-        func play() {
-            getNextImageIndex()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                if self.isPlaying == 1 {
-                    play()
-                }
+    
+    
+    
+    func startAutoPlay() {
+            guard isPlaying == false else { return }
+            
+            isPlaying = true
+            autoPlayTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] _ in
+                self?.getNextImageIndex()
             }
         }
         
-        play()
+    func stopAutoPlay() {
+        isPlaying = false
+        autoPlayTimer?.invalidate()
+        autoPlayTimer = nil
+    }
+    
+    func getRandomImages() {
+        randomDateBetween(startDate: DateComponents(year: 2015, month: 10, day: 31), endDate: currentDate)
+    }
+    
+    func randomDateBetween(startDate: DateComponents, endDate: Date) {
+        // Check if the start date is later than the end date
+        guard let startDate = Calendar.current.date(from: startDate),
+              startDate < endDate else {
+            return
+        }
+        
+        // Get the start and end date's time intervals
+        let startInterval = startDate.timeIntervalSince1970
+        let endInterval = endDate.timeIntervalSince1970
+        
+        // Generate a random time interval within the range
+        let randomInterval = TimeInterval.random(in: startInterval...endInterval)
+        
+        // Create a date using the random interval
+        let randomDate = Date(timeIntervalSince1970: randomInterval)
+        
+        currentDate = randomDate
     }
 }
+
+
 
 struct EpicViewModel_Previews: PreviewProvider {
     static var previews: some View {

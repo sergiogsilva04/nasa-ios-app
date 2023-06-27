@@ -1,24 +1,12 @@
-
-
-import Foundation
 import SwiftUI
-import UIKit
-
 
 struct EpicView: View {
     @StateObject var viewModel = EpicViewModel()
-    let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.locale = .current
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.tintColor = .systemGreen
-        return datePicker
-    }()
+    
 
     var body: some View {
         VStack{
-            Text("Mars Images")
+            Text("Earth Rotation")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
@@ -28,10 +16,13 @@ struct EpicView: View {
            
             Spacer().frame(height: 30)
             
-            HStack{
+            HStack {
                 Spacer().frame(width: 100)
                 
                 DatePicker("", selection: $viewModel.currentDate, in: viewModel.dateRange, displayedComponents: .date)
+                    .onChange(of: viewModel.currentDate) { _ in
+                        viewModel.getData()
+                    }
                 
                 Spacer().frame(width: 100)
             }
@@ -49,7 +40,7 @@ struct EpicView: View {
                 
                 
                 if let epic = viewModel.epic {
-                    if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/\(viewModel.epic![viewModel.currentImageIndex].image).png") {
+                    if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/\(viewModel.currentDate.dataFormatada2())/png/\(viewModel.epic![viewModel.currentImageIndex].image).png") {
                         AsyncImage(url: url) { image in
                             image
                                 .resizable()
@@ -80,19 +71,20 @@ struct EpicView: View {
             HStack{
                 VStack{
                     if let epic = viewModel.epic {
-                        if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/\(viewModel.epic![viewModel.previousImageIndex].image).png") {
-                            AsyncImage(url: url) { image in
-                                image
-                                    .resizable()
-                                    .cornerRadius(15)
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                
-                            } placeholder: {
-                                ProgressView()
+                        if viewModel.previousImageIndex >= 0 && viewModel.previousImageIndex < epic.count {
+                            let imageURLString = "https://epic.gsfc.nasa.gov/archive/natural/\(viewModel.currentDate.dataFormatada2())/png/\(epic[viewModel.previousImageIndex].image).png"
+                            if let url = URL(string: imageURLString) {
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .cornerRadius(15)
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 100, height: 100)
                             }
-                            .frame(width: 100, height: 100)
-                            
                         }
                     }
                     
@@ -104,7 +96,7 @@ struct EpicView: View {
                 Spacer().frame(width: 20)
                 VStack{
                     if let epic = viewModel.epic {
-                        if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/\(viewModel.epic![viewModel.currentImageIndex].image).png") {
+                        if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/\(viewModel.currentDate.dataFormatada2())/png/\(viewModel.epic![viewModel.currentImageIndex].image).png") {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()
@@ -137,7 +129,7 @@ struct EpicView: View {
                 
                 VStack{
                     if let epic = viewModel.epic {
-                        if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/\(viewModel.epic![viewModel.nextImageIndex].image).png") {
+                        if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/\(viewModel.currentDate.dataFormatada2())/png/\(viewModel.epic![viewModel.nextImageIndex].image).png") {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()
@@ -163,13 +155,16 @@ struct EpicView: View {
             HStack{
                 Spacer()
                 Button {
-                    viewModel.autoPlay()
-                    
+                    if viewModel.isPlaying == false {
+                        viewModel.startAutoPlay()
+                    } else {
+                        viewModel.stopAutoPlay()
+                    }
                 } label: {
-                    Text("Play")
+                    Text(viewModel.isPlaying ? "Stop" : "Play")
                         .padding()
                         .frame(width: 150)
-                        .background(Color.green)
+                        .background(viewModel.isPlaying ? Color.red : Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(50)
                         .padding(.top, 20)
@@ -178,9 +173,10 @@ struct EpicView: View {
                 
                 Spacer()
                 
-                Button(action:
-                          {
-                }) {
+                Button {
+                    viewModel.getRandomImages()
+                    
+                } label: {
                     Text("Random Date")
                         .padding()
                         .frame(width: 150)
