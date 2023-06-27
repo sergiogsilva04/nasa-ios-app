@@ -9,12 +9,12 @@ struct ContentView: View {
             VStack {
                 HStack{
                     Spacer()
-                    Text("Sou uma API da NASA onde é possivel ver imagens em satelite em varios dias e localizações diferentes, esperimenta para veres!!!")
+                    Text("SATELLITE IMAGERY")
                     Spacer()
                     }
                     
                     Spacer()
-                        .frame(height: 80)
+                        .frame(height: 30)
                     
                     HStack {
                         Spacer().frame(width: 180)
@@ -52,7 +52,6 @@ struct ContentView: View {
                     VStack(alignment: .center) {
                         Text("Location")
                             .bold()
-                        
                         if let country = mapViewModel.country {
                             Text("\(mapViewModel.city != nil ? "\(mapViewModel.city!), " : "")\(country)")
                             
