@@ -43,14 +43,12 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func getRandomLocation() {
-            let latitudeDelta: CLLocationDegrees = 0.5
-            let longitudeDelta: CLLocationDegrees = 0.5
-            
-            let randomLatitude = Double.random(in: mapRegion.center.latitude - latitudeDelta...mapRegion.center.latitude + latitudeDelta)
-            let randomLongitude = Double.random(in: mapRegion.center.longitude - longitudeDelta...mapRegion.center.longitude + longitudeDelta)
-            LocationData.shared.longitude = randomLongitude
-            LocationData.shared.latitude = randomLatitude
-        }
+        
+        let randomLatitude = Double.random(in: -70.0...70.0)
+        let randomLongitude = Double.random(in: -140.0...140.0)
+        LocationData.shared.longitude = randomLongitude
+        LocationData.shared.latitude = randomLatitude
+    }
     
     func getCityAndCountryFromCoordinates(completion: @escaping (String?, String?) -> Void) {
         let location = CLLocation(latitude: LocationData.shared.latitude, longitude: LocationData.shared.longitude)

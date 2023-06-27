@@ -43,6 +43,8 @@ struct ContentView: View {
                             ProgressView()
                         }
                         .frame(width: 300, height: 300)
+                        
+                        
                         }
                     }
                 Spacer()
@@ -55,7 +57,7 @@ struct ContentView: View {
                             Text("\(mapViewModel.city != nil ? "\(mapViewModel.city!), " : "")\(country)")
                             
                         } else {
-                            Text("Not available")
+                            Text("No location available")
                                 .onAppear {
                                     mapViewModel.getCityAndCountryFromCoordinates() { country, city in
                                         mapViewModel.city = city
@@ -73,8 +75,6 @@ struct ContentView: View {
                             mapViewModel.city = city
                             mapViewModel.country = country
                         }
-                        print(mapViewModel.city)
-                        print(mapViewModel.country)
                     } label: {
                         Text ("SEARCH")
                         
@@ -87,17 +87,16 @@ struct ContentView: View {
                             Task {
                                     do {
                                         try await viewModel.getRandomPost()
+                                        mapViewModel.getCityAndCountryFromCoordinates() { country, city in
+                                            mapViewModel.city = city
+                                            mapViewModel.country = country
+                                        }
                                     } catch {
                                         // Handle the error here
                                         print("Error: \(error)")
                                     }
                                 }
-                            mapViewModel.getCityAndCountryFromCoordinates() { country, city in
-                                mapViewModel.city = city
-                                mapViewModel.country = country
-                            }
-                            print(mapViewModel.city)
-                            print(mapViewModel.country)
+                            
                         }label: {
                             Text ("RANDOM")
                         }
