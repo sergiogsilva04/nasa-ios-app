@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct MainView: View {
-    let developers: [String] = ["Miguel Rodrigues - 2022009", "Joao Fernandes - 2022062", "Sérgio Silva - 2022284"]
+struct HomeView: View {
+    let developers: [String] = ["Miguel Rodrigues - 2022009", "João Fernandes - 2022062", "Sérgio Silva - 2022284"]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Text("{ NASA APIs }")
                     .font(.system(size: 35, weight: .bold))
@@ -26,23 +26,25 @@ struct MainView: View {
                 }
                 .buttonStyle(MenuButtonStyle(iconName: "apod", color: .black ))
                 
-                HStack {
-                    Image(systemName: "person.3.fill")
-                        .foregroundColor(.blue)
+                Section {
+                    List(developers, id: \.self) { developer in
+                        Text(developer)
+                    }
+                    .cornerRadius(20)
+                    .scrollDisabled(true)
+                    .padding(.horizontal, 32)
+                    .frame(height: 200)
                     
-                    Text("Developers")
+                } header: {
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                            .foregroundColor(.blue)
+                        
+                        Text("Developers")
+                    }
+                    .font(.system(size: 25, weight: .bold))
+                    .padding()
                 }
-                .font(.system(size: 25, weight: .bold))
-                .padding()
-                
-                List(developers, id: \.self) { developer in
-                    Text(developer)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
-                .listStyle(.plain)
-                .scrollDisabled(true)
-                .padding(.horizontal, 32)
-                .frame(height: 150)
             }
         }
     }
@@ -50,6 +52,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        HomeView()
     }
 }
