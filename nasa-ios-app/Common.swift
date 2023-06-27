@@ -60,7 +60,7 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
-struct LoadingDialogView<Content>: View where Content: View {
+struct LoadingView<Content>: View where Content: View {
     @Binding var isShowing: Bool
     var content: () -> Content
 
@@ -70,7 +70,7 @@ struct LoadingDialogView<Content>: View where Content: View {
                 .disabled(isShowing)
                 .blur(radius: isShowing ? 3 : 0)
             
-            if (isShowing) {
+            if isShowing {
                 VStack {
                     Text("Loading...")
                     ActivityIndicator(isAnimating: .constant(true), style: .large)

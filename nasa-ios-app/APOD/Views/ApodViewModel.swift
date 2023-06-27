@@ -32,26 +32,19 @@ class ApodViewModel: ObservableObject {
     }
 
     func getData(random: Bool = false) {
-        DispatchQueue.main.async {
-            self.currentAsyncImageUrl = ""
-        }
+        self.currentAsyncImageUrl = ""
         
         if (Common.checkInternetAvailability()) {
-            DispatchQueue.main.async {
-                self.isShowingLoadingDialog = true
-            }
+            self.isShowingLoadingDialog = true
             
             Task {
                 do {
                     try await self.getApod(random: random)
                     
-                    DispatchQueue.main.async {
-                        self.isShowingLoadingDialog = false
-                    }
+                    self.isShowingLoadingDialog = false
                     
                 } catch {
-                    self.getData(random: random)
-                    
+                    self.isShowingLoadingDialog = false
                     print("Erro: \(error)")
                 }
             }
@@ -68,17 +61,11 @@ class ApodViewModel: ObservableObject {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             let response = (response as? HTTPURLResponse)
             
-            DispatchQueue.main.async {
-                self.isShowingLoadingDialog = false
-            }
+            self.isShowingLoadingDialog = false
             
             if (response?.statusCode == 504) {
+                //getData(random: random)
                 print("erro 504")
-                self.getData(random: random)
-                
-                DispatchQueue.main.async {
-                    self.isShowingLoadingDialog = true
-                }
                 
             } else {
                 print("Error loading post: \(response!)")
@@ -91,19 +78,14 @@ class ApodViewModel: ObservableObject {
         
         if (random) {
             self.apod = try decoder.decode(Apods.self, from: data)[0]
-
-            DispatchQueue.main.async {
-                self.currentDate = self.dateFormatter.date(from: self.apod!.date)!
-            }
+            self.currentDate = dateFormatter.date(from: self.apod!.date)!
             
         } else {
             self.apod = try decoder.decode(Apod.self, from: data)
         }
-        
-        DispatchQueue.main.async {
-            self.currentMediaType = ApodMediaType(rawValue: self.apod!.media_type) ?? .unknown
-            self.currentAsyncImageUrl = self.apod!.url
-        }
+ 
+        self.currentMediaType = ApodMediaType(rawValue: self.apod!.media_type) ?? .unknown
+        self.currentAsyncImageUrl = self.apod!.url
     }
     
     func isPreviousDayAvailable() -> Bool {

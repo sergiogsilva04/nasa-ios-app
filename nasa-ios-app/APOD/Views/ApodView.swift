@@ -12,7 +12,7 @@ struct ApodView: View {
             if (Common.checkInternetAvailability()) {
                 Spacer()
                 
-                LoadingDialogView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
+                LoadingView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
                     VStack {
                         if let apod = viewModel.apod {
                             Spacer()

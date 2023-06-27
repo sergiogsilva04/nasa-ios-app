@@ -15,50 +15,46 @@ struct FilterView: View {
                 
                 HStack {
                     Button("Last week") {
-                        viewModel.priorDaysFilter = viewModel.isPriorDaysWeekActive ? 0 : 7
-                        
-                        viewModel.isPriorDaysWeekActive.toggle()
+                        viewModel.priorDaysFilter = 7
+                        viewModel.isPriorDaysWeekActive = true
                         viewModel.isPriorDaysMonthActive = false
                         viewModel.isPriorDaysYearActive = false
-                    }
-                    .buttonStyle(EventFilterButtonStyle(active: viewModel.isPriorDaysWeekActive))
-                    
-                    Button("Last month") {
-                        viewModel.priorDaysFilter = viewModel.isPriorDaysMonthActive ? 0 : 30
-                        
-                        viewModel.isPriorDaysWeekActive = false
-                        viewModel.isPriorDaysMonthActive.toggle()
-                        viewModel.isPriorDaysYearActive = false
-                    }
-                    .buttonStyle(EventFilterButtonStyle(active: viewModel.isPriorDaysMonthActive))
-                    
-                    Button("Last year") {
-                        viewModel.priorDaysFilter = viewModel.isPriorDaysYearActive ? 0 : 365
-                        
-                        viewModel.isPriorDaysWeekActive = false
-                        viewModel.isPriorDaysMonthActive = false
-                        viewModel.isPriorDaysYearActive.toggle()
                     }
                     .buttonStyle(EventFilterButtonStyle(active: viewModel.isPriorDaysYearActive))
+                    
+                    Button("Last month") {
+                        viewModel.priorDaysFilter = 30
+                        viewModel.isPriorDaysWeekActive = false
+                        viewModel.isPriorDaysMonthActive = true
+                        viewModel.isPriorDaysYearActive = false
+                    }
+                    .buttonStyle(EventFilterButtonStyle(active: viewModel.isPriorDaysYearActive))
+                    
+                    Button("Last year") {
+                        viewModel.priorDaysFilter = 365
+                        viewModel.isPriorDaysWeekActive = false
+                        viewModel.isPriorDaysMonthActive = false
+                        viewModel.isPriorDaysYearActive = true
+                    }
+                    .buttonStyle(EventFilterButtonStyle(active: viewModel.isPriorDaysYearActive))
+
                 }
                 .padding(.bottom, 10)
                 
                 HStack {
                     Text("Prior days: \(viewModel.priorDaysFilter)")
                     
-                    Stepper("", value: $viewModel.priorDaysFilter, in: 0...500) { edited in
+                    Stepper("", value: $viewModel.priorDaysFilter, in: 0...100) { edited in
                         viewModel.isPriorDaysWeekActive = false
                         viewModel.isPriorDaysMonthActive = false
                         viewModel.isPriorDaysYearActive = false
                     }
                 }
                 
-                if (viewModel.priorDaysFilter == 0) {
-                    DatePicker("Start Date", selection: $viewModel.startDateFilter, in: viewModel.startDateFilterRange, displayedComponents: .date)
-                    
-                    DatePicker("End Date", selection: $viewModel.endDateFilter, in: viewModel.startDateFilter...Date(), displayedComponents: .date)
-                }
-
+                DatePicker("Start Date", selection: $viewModel.startDateFilter, in: viewModel.startDateFilterRange, displayedComponents: .date)
+                
+                DatePicker("End Date", selection: $viewModel.endDateFilter, in: viewModel.startDateFilter...Date(), displayedComponents: .date)
+                
                 Button {
                     viewModel.clearFilters()
                     
@@ -79,11 +75,5 @@ struct FilterView: View {
             }
             .padding(10)
         }
-    }
-}
-
-struct EventsFilter_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterView(viewModel: EventsView().viewModel)
     }
 }
