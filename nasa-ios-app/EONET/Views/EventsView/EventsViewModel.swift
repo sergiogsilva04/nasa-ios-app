@@ -2,12 +2,13 @@ import SwiftUI
 
 class EventsViewModel: ObservableObject, listsData {
     @Published var eventsList: Events = []
-    @Published var categoriesList: Categories = []
+    @Published var categoriesList: Categories = [Category(id: "all", title: "All categories", description: "All categories", link: "https://eonet.gsfc.nasa.gov/api/v3/events?status=all")]
     @Published var selectedCategoryId: Category.ID = "all" as Category.ID
     @Published var selectedEventsStatus: String = "On going"
     @Published var isShowingCategoryInfoDialog: Bool = false
     @Published var isShowingLoadingDialog: Bool = true
     @Published var isShowingNetworkDialog: Bool = false
+    @Published var isShowingFiltersDialog: Bool = false
     @Published var isPriorDaysWeekActive: Bool = false
     @Published var isPriorDaysMonthActive: Bool = false
     @Published var isPriorDaysYearActive: Bool = false
@@ -28,11 +29,13 @@ class EventsViewModel: ObservableObject, listsData {
     var filteredEvents: [Event] {
         var filteredList = self.selectedCategoryId == "all" ? self.eventsList : self.eventsList.filter { $0.categories.first?.id == self.selectedCategoryId }
         
-        filteredList = filteredList.filter {
-            self.dateFormatter.date(from: $0.geometry.first!.date)! > self.startDateFilter && dateFormatter.date(from: $0.geometry.first!.date)! < self.endDateFilter
+        if (self.priorDaysFilter == 0) {
+            filteredList = filteredList.filter {
+                self.dateFormatter.date(from: $0.geometry.first!.date)! > self.startDateFilter && dateFormatter.date(from: $0.geometry.first!.date)! < self.endDateFilter
+            }
         }
         
-        if (self.priorDaysFilter != 0) {
+        if (self.priorDaysFilter > 0) {
             filteredList = filteredList.filter {
                 isEventInPast(date: self.dateFormatter.date(from: $0.geometry.first!.date)!)
             }
@@ -62,8 +65,10 @@ class EventsViewModel: ObservableObject, listsData {
                     try await getEvents()
                     try await getCategories()
                     
-                    isShowingLoadingDialog = false
-                    
+                    DispatchQueue.main.async {
+                        self.isShowingLoadingDialog = false
+                    }
+                
                 } catch {
                     print(error)
                 }
@@ -78,7 +83,7 @@ class EventsViewModel: ObservableObject, listsData {
             fatalError("Error loading events")
         }
         
-        self.eventsList = try JSONDecoder().decode(EventsResponse.self, from: data).events
+        self.eventsList.append(contentsOf: try JSONDecoder().decode(EventsResponse.self, from: data).events)
     }
     
     func getCategories() async throws {
@@ -88,9 +93,7 @@ class EventsViewModel: ObservableObject, listsData {
             fatalError("Error loading events")
         }
         
-        self.categoriesList = try JSONDecoder().decode(CategoryResponse.self, from: data).categories
-        self.categoriesList.insert(Category(id: "all", title: "All categories", description: "All categories", link: "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=\(self.eventsLimit)"), at: 0)
-        self.selectedCategoryId = "all"
+        self.categoriesList.append(contentsOf: (try JSONDecoder().decode(CategoryResponse.self, from: data).categories))
     }
     
     func getCategoryById(categoryId: String) -> Category? {
@@ -98,7 +101,6 @@ class EventsViewModel: ObservableObject, listsData {
     }
     
     func clearFilters() {
-        
         self.isPriorDaysWeekActive = false
         self.isPriorDaysMonthActive = false
         self.isPriorDaysYearActive = false
@@ -111,5 +113,11 @@ class EventsViewModel: ObservableObject, listsData {
         let components = Calendar.current.dateComponents([.day], from: date, to: self.endDateFilter)
         
         return components.day != nil && components.day! <= self.priorDaysFilter
+    }
+}
+
+struct EventsViewModel_Previews: PreviewProvider {
+    static var previews: some View {
+        EventsView()
     }
 }

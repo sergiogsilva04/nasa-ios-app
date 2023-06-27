@@ -60,6 +60,7 @@ struct EventInfoView: View {
                         .bold()
                     
                     if (viewModel.eventGeometry.first != nil && viewModel.eventGeometry.first!.magnitudeUnit != nil) {
+                        Text("\(String(format: "%.1f", viewModel.averageMagnitude)) \(viewModel.magnitudeUnit)")
                         
                     } else {
                         Text("Not available")
@@ -87,7 +88,6 @@ struct EventInfoView: View {
                 
                 Spacer()
             }
-            .toolbar(.hidden)
         }
     }
 }

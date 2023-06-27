@@ -4,7 +4,7 @@ import SwiftUI
 struct nasa_ios_appApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            HomeView()
         }
     }
 }
