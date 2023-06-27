@@ -1,11 +1,11 @@
 import Foundation
 
 struct Apod: Decodable {
-    var date: String
-    var explanation: String
-    var media_type: String
-    var title: String
-    var url: String
+    let date: String
+    let explanation: String
+    let media_type: String
+    let title: String
+    let url: String
 }
 
 typealias Apods = [Apod]

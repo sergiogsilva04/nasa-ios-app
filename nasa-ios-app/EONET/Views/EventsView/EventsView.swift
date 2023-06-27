@@ -6,8 +6,7 @@ struct EventsView: View {
     var body: some View {
         NavigationStack {
             Text("Natural Event Tracker")
-                .multilineTextAlignment(.center)
-                .font(.system(size: 35))
+                .pageTitleTextStyle()
             
             if (Common.checkInternetAvailability()) {
                 LoadingDialogView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {
@@ -65,29 +64,36 @@ struct EventsView: View {
                             }
                             .pickerStyle(.segmented)
                             
-                            Button {
-                                viewModel.isShowingFiltersDialog = true
-
-                            } label: {
-                                Image(systemName: "line.horizontal.3.decrease.circle")
-                                    .imageScale(.large)
-                                
-                                Text("Show filters")
-                            }
-                            .buttonStyle(PrimaryButtonStyle())
-                            .sheet(isPresented: $viewModel.isShowingFiltersDialog) {
-                                VStack {
-                                    Rectangle()
-                                       .frame(width: 40, height: 5)
-                                       .cornerRadius(2.5)
-                                       .foregroundColor(.secondary)
+                            HStack() {
+                                Button {
+                                    viewModel.isShowingFiltersDialog = true
                                     
-                                    FilterView(viewModel: viewModel)
+                                } label: {
+                                    Image(systemName: "line.horizontal.3.decrease.circle")
+                                        .imageScale(.large)
+                                    
+                                    Text("Show filters")
                                 }
-                                .padding()
-                                .presentationDetents([.height(viewModel.priorDaysFilter > 0 ? 260 : 350)])
+                                .buttonStyle(PrimaryButtonStyle())
+                                .sheet(isPresented: $viewModel.isShowingFiltersDialog) {
+                                    VStack {
+                                        Rectangle()
+                                            .frame(width: 40, height: 5)
+                                            .cornerRadius(2.5)
+                                            .foregroundColor(.secondary)
+                                        
+                                        FilterView(viewModel: viewModel)
+                                    }
+                                    .padding()
+                                    .presentationDetents([.height(viewModel.priorDaysFilter > 0 ? 260 : 350)])
+                                }
+                                
+                                Toggle(isOn: $viewModel.isListModeActive) {
+                                    Text("Lista?")
+                                }
+                                .frame(width: 160)
                             }
-                            
+                        
                             if (viewModel.filteredEvents.isEmpty) {
                                 VStack {
                                     Image(systemName: "exclamationmark.circle")
@@ -106,17 +112,12 @@ struct EventsView: View {
                                 Spacer()
                                 
                             } else {
-                                List(viewModel.filteredEvents.lazy) { event in
-                                    NavigationLink {
-                                        EventInfoView(event: event)
-
-                                    } label: {
-                                       EventRowView(event: event)
-                                    }
-                                    .listRowBackground(event.closed == nil ? Color.green : Color.red)
+                                if (viewModel.isListModeActive) {
+                                    EventsListView(viewModel: viewModel)
+                                    
+                                } else {
+                                    EventsGridView(viewModel: viewModel)
                                 }
-                                .cornerRadius(15)
-                                .listStyle(.plain)
                             }
                         }
                     }

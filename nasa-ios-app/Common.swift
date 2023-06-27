@@ -39,7 +39,7 @@ struct NoInternetConnectionView: View {
             
             Text("No internet connection")
             
-            Button("Random") {
+            Button("Retry") {
                 retryAction()
             }
             .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "arrow.clockwise")))

@@ -9,6 +9,7 @@ class EventsViewModel: ObservableObject, listsData {
     @Published var isShowingLoadingDialog: Bool = true
     @Published var isShowingNetworkDialog: Bool = false
     @Published var isShowingFiltersDialog: Bool = false
+    @Published var isListModeActive: Bool = true
     @Published var isPriorDaysWeekActive: Bool = false
     @Published var isPriorDaysMonthActive: Bool = false
     @Published var isPriorDaysYearActive: Bool = false
@@ -41,7 +42,7 @@ class EventsViewModel: ObservableObject, listsData {
             }
         }
         
-        switch (selectedEventsStatus) {
+        switch (self.selectedEventsStatus) {
             case "On going":
                 return filteredList.filter { $0.closed == nil }
                 

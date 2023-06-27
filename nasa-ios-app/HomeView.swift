@@ -25,10 +25,27 @@ struct HomeView: View {
                     ApodView()
                     
                 } label: {
-                    Text("Astronomy Picture of the Day")
+                    Text("Picture of the Day")
 
                 }
                 .buttonStyle(MenuButtonStyle(iconName: "apod", color: .black ))
+                
+                NavigationLink {
+                    EarthView()
+                    
+                } label: {
+                    Text("Satellite Imagery")
+
+                }
+                .buttonStyle(MenuButtonStyle(iconName: "earth", color: .gray ))
+                
+                NavigationLink {
+                    EpicView()
+                    
+                } label: {
+                    Text("Earh all Around")
+                }
+                .buttonStyle(MenuButtonStyle(iconName: "epic", color: .blue ))
 
                 Section {
                     List(developers, id: \.self) { developer in

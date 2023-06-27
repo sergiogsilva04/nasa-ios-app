@@ -119,7 +119,7 @@ class ApodViewModel: ObservableObject {
     }
 }
 
-struct Video: UIViewRepresentable {
+struct YoutubeVideoView: UIViewRepresentable {
     let videoUrl: String
     
     func makeUIView(context: Context) -> WKWebView {
