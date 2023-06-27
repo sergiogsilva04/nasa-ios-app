@@ -6,13 +6,6 @@ struct Geometry: Decodable {
     var date: String
     var type: String
     var coordinates: [Double]
-    // TODO: DAR FIX NO ERRO DE MISMATCH DO TIPO POLYGON E POINT
-    /*
-     https://chat.openai.com/c/9828c303-725a-408f-bf54-80c38bb90658
-     https://emergency.copernicus.eu/mapping/list-of-components/EMSR324
-     https://www.mongodb.com/docs/manual/reference/geojson/
-     typeMismatch(Swift.Double, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "events", intValue: nil), _JSONKey(stringValue: "Index 2159", intValue: 2159), CodingKeys(stringValue: "geometry", intValue: nil), _JSONKey(stringValue: "Index 0", intValue: 0), CodingKeys(stringValue: "coordinates", intValue: nil), _JSONKey(stringValue: "Index 0", intValue: 0)], debugDescription: "Expected to decode Double but found an array instead.", underlyingError: nil))
-     */
 }
 
 struct Source: Identifiable, Decodable {

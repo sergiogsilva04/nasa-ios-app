@@ -15,7 +15,7 @@ class EventsViewModel: ObservableObject, listsData {
     @Published var startDateFilter: Date = Calendar.current.date(from: DateComponents(year: 1980, month: 1, day: 10))!
     @Published var endDateFilter: Date = Date()
     
-    let eventsLimit: Int = 20 // max until fix geomtry error = 2000
+    let eventsLimit: Int = 100 // max until fix geomtry error = 2000
     let eventsStatus: [String] = ["On going", "Finished", "All"]
     let dateFormatter: DateFormatter = DateFormatter()
     let startDateFilterRange: ClosedRange<Date> = {

@@ -26,6 +26,27 @@ class Common {
     }
 }
 
+struct NoInternetConnectionView: View {
+    var retryAction: () -> Void
+    
+    var body: some View {
+        VStack {
+            Image(systemName: "wifi.slash")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)
+                .foregroundColor(.red)
+            
+            Text("No internet connection")
+            
+            Button("Random") {
+                retryAction()
+            }
+            .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "arrow.clockwise")))
+        }
+    }
+}
+
 struct ActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
     let style: UIActivityIndicatorView.Style

@@ -1,22 +1,4 @@
 import SwiftUI
-import WebKit
-
-struct Video: UIViewRepresentable {
-    let videoUrl: String
-    
-    func makeUIView(context: Context) -> WKWebView {
-        return WKWebView()
-    }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        guard let youtubeURL = URL(string: videoUrl) else {
-            return
-        }
-                
-        uiView.scrollView.isScrollEnabled = false
-        uiView.load(URLRequest(url: youtubeURL))
-    }
-}
 
 struct ApodView: View {
     @StateObject var viewModel = ApodViewModel()
@@ -55,11 +37,12 @@ struct ApodView: View {
                                             if let image = phase.image {
                                                 image
                                                     .resizable()
-                                                    .aspectRatio(contentMode: .fit)
                                                     .cornerRadius(15)
+                                                    .scaledToFit()
+                                                    .frame(width: 300, height: 300)
                                                 
                                             } else if phase.error != nil {
-                                                Text("No image loaded")
+                                                Text("No image available")
                                                 
                                             } else {
                                                 ProgressView()
@@ -100,13 +83,7 @@ struct ApodView: View {
                             Button("Random") {
                                 viewModel.getData(random: true)
                             }
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .background(.blue)
-                            .cornerRadius(25)
-                            .shadow(radius: 5)
-                            .padding()
+                            .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "shuffle")))
                         }
                     }
                 }
@@ -114,24 +91,9 @@ struct ApodView: View {
                 Spacer()
                 
             } else {
-                Image(systemName: "wifi.slash")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 200, height: 200)
-                    .foregroundColor(.red)
-                
-                Text("No internet connection")
-                
-                Button("Retry") {
+                NoInternetConnectionView {
                     viewModel.getData()
                 }
-                .padding()
-                .font(.headline)
-                .foregroundColor(.white)
-                .background(.blue)
-                .cornerRadius(25)
-                .shadow(radius: 5)
-                .padding()
             }
         }
         .padding(10)

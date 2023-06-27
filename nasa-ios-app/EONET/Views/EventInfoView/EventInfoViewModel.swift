@@ -111,6 +111,7 @@ class EventInfoViewModel: ObservableObject {
             mapView.delegate = context.coordinator
             addPins(for: geometries, mapView: mapView)
             setMapRegion(for: geometries, mapView: mapView)
+            
             return mapView
         }
 

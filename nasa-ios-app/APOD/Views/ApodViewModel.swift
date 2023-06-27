@@ -1,4 +1,5 @@
 import SwiftUI
+import WebKit
 
 class ApodViewModel: ObservableObject {
     @Published var apod: Apod? = nil
@@ -63,6 +64,7 @@ class ApodViewModel: ObservableObject {
             self.isShowingLoadingDialog = false
             
             if (response?.statusCode == 504) {
+                //getData(random: random)
                 print("erro 504")
                 
             } else {
@@ -96,5 +98,22 @@ class ApodViewModel: ObservableObject {
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: self.currentDate)
         
         return nextDate != nil && nextDate! >= self.dateRange.upperBound
+    }
+}
+
+struct Video: UIViewRepresentable {
+    let videoUrl: String
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        guard let youtubeURL = URL(string: videoUrl) else {
+            return
+        }
+                
+        uiView.scrollView.isScrollEnabled = false
+        uiView.load(URLRequest(url: youtubeURL))
     }
 }
