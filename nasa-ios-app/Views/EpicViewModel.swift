@@ -94,15 +94,19 @@ class EpicViewModel: ObservableObject {
         
     }
     
-    func autoPlay(){
-        getNextImageIndex()
-        while isPlaying == 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.getNextImageIndex()
+    func autoPlay() {
+        isPlaying = 1 // Assuming you have a variable named isPlaying
+        
+        func play() {
+            getNextImageIndex()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                if self.isPlaying == 1 {
+                    play()
+                }
             }
         }
         
-        
+        play()
     }
 }
 
