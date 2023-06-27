@@ -45,33 +45,66 @@ struct ContentView: View {
                         .frame(width: 300, height: 300)
                         }
                     }
-                
-                    Spacer()
+                Spacer()
+                    
+                    VStack(alignment: .center) {
+                        Text("Location")
+                            .bold()
+                        
+                        if let country = mapViewModel.country {
+                            Text("\(mapViewModel.city != nil ? "\(mapViewModel.city!), " : "")\(country)")
+                            
+                        } else {
+                            Text("Not available")
+                                .onAppear {
+                                    mapViewModel.getCityAndCountryFromCoordinates() { country, city in
+                                        mapViewModel.city = city
+                                        mapViewModel.country = country
+                                    }
+                                }
+                        }
+                    }
+                    Spacer().frame(width: 350, height: 30)
                     
                     Button {
                         viewModel.post?.url = ""
                         viewModel.getData()
-                        
+                        mapViewModel.getCityAndCountryFromCoordinates() { country, city in
+                            mapViewModel.city = city
+                            mapViewModel.country = country
+                        }
+                        print(mapViewModel.city)
+                        print(mapViewModel.country)
                     } label: {
                         Text ("SEARCH")
+                        
                     }
-                    
-                    Spacer().frame(width: 350, height: 50)
-                    
-                    Button{
-                        viewModel.post?.url = ""
-                        Task {
-                                do {
-                                    try await viewModel.getRandomPost()
-                                } catch {
-                                    // Handle the error here
-                                    print("Error: \(error)")
+                    Group{
+                        Spacer().frame(width: 350, height: 50)
+                        
+                        Button{
+                            viewModel.post?.url = ""
+                            Task {
+                                    do {
+                                        try await viewModel.getRandomPost()
+                                    } catch {
+                                        // Handle the error here
+                                        print("Error: \(error)")
+                                    }
                                 }
+                            mapViewModel.getCityAndCountryFromCoordinates() { country, city in
+                                mapViewModel.city = city
+                                mapViewModel.country = country
                             }
-                    }label: {
-                        Text ("RANDOM")
+                            print(mapViewModel.city)
+                            print(mapViewModel.country)
+                        }label: {
+                            Text ("RANDOM")
+                        }
+                        Spacer().frame(width: 350, height: 50)
                     }
-                    Spacer().frame(width: 350, height: 50)
+                    
+                    
                 }
             
         }
