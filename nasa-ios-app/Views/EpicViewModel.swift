@@ -5,6 +5,7 @@ class EpicViewModel: ObservableObject {
     @Published var currentImageIndex: Int = 0
     @Published var previousImageIndex: Int = 0
     @Published var nextImageIndex: Int = 1
+    @Published var isPlaying = 1
     @Published var currentDate = Calendar.current.date(from: DateComponents(year: 2021, month: 12, day: 25))!
     
     let dateRange: ClosedRange<Date> = {
@@ -90,6 +91,17 @@ class EpicViewModel: ObservableObject {
             }
             nextImageIndex-=1
         }
+        
+    }
+    
+    func autoPlay(){
+        getNextImageIndex()
+        while isPlaying == 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.getNextImageIndex()
+            }
+        }
+        
         
     }
 }

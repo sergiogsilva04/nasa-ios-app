@@ -24,11 +24,7 @@ struct EpicView: View {
                 .multilineTextAlignment(.center)
                 .padding(.top, 10)
             
-            Button("change") {
-                viewModel.currentImageIndex+=1
-                print(viewModel.epic![viewModel.currentImageIndex])
-
-            }
+            
            
             Spacer().frame(height: 30)
             
@@ -165,29 +161,35 @@ struct EpicView: View {
             Spacer()
             
             HStack{
-                Button(action:
-                        {
-                  }) {
-                          Text("Search")
-                              .padding()
-                              .background(Color.green)
-                              .foregroundColor(.white)
-                              .cornerRadius(50)
-                              .padding(.top, 20)
-                      }
+                Spacer()
+                Button {
+                    viewModel.autoPlay()
+                    
+                } label: {
+                    Text("Play")
+                        .padding()
+                        .frame(width: 150)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(50)
+                        .padding(.top, 20)
+                }
+                
                 
                 Spacer()
                 
                 Button(action:
                           {
                 }) {
-                    Text("Random")
+                    Text("Random Date")
                         .padding()
+                        .frame(width: 150)
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(50)
                         .padding(.top, 20)
                 }
+                Spacer()
             }
             
             
