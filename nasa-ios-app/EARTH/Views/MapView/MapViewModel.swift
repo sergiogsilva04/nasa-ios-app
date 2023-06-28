@@ -4,7 +4,7 @@ import MapKit
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var selectedCoordinate: CLLocationCoordinate2D?
     @Published var locations = [Location]()
-    @Published var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+    @Published var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: LocationData.shared.latitude, longitude: LocationData.shared.longitude), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     @Published var city: String?
     @Published var country: String?
     

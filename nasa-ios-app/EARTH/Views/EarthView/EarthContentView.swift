@@ -21,8 +21,8 @@ struct EarthContentView: View {
         
         Spacer()
         
-        if let earth = viewModel.earth {
-            if let url = URL(string: earth.url) {
+        //if let earth = viewModel.earth {
+            if let url = URL(string: "https://api.nasa.gov/assets/img/general/houston_2.png") {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
@@ -35,7 +35,7 @@ struct EarthContentView: View {
                 }
                 .frame(width: 350, height: 350)
             }
-        }
+        //}
         
         Spacer()
         
@@ -58,21 +58,15 @@ struct EarthContentView: View {
         }
         
         HStack {
-            Button {
+            Button("Search") {
                 viewModel.earth?.url = ""
                 viewModel.getData()
                 mapViewModel.getCityAndCountryFromCoordinates() { country, city in
                     mapViewModel.city = city
                     mapViewModel.country = country
                 }
-                
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .imageScale(.large)
-                
-                Text("Search")
             }
-            .buttonStyle(PrimaryButtonStyle(color: .green))
+            .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "magnifyingglass"), color: .green))
 
             Button("Random") {
                 viewModel.earth?.url = ""

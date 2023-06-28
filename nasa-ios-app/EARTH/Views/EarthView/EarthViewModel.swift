@@ -4,7 +4,7 @@ class EarthViewModel: ObservableObject {
     @Published var earth: Earth? = nil
     @Published var latitude: Double = 38.76857711768943
     @Published var longitude: Double = -9.160021831225064
-    @Published var isShowingLoadingDialog: Bool = true
+    @Published var isShowingLoadingDialog: Bool = false
     @Published var isShowingNetworkDialog: Bool = false
     @Published var currentDate = Calendar.current.date(from: DateComponents(year: 2021, month: 12, day: 25))!
     
@@ -17,13 +17,13 @@ class EarthViewModel: ObservableObject {
     }()
     
     init() {
-        getData()
+        //getData()
     }
     
     func getData() {
         Task{
             do {
-                try await getPost()
+                try await getEarth()
                 
                 DispatchQueue.main.async {
                     self.isShowingLoadingDialog = false
@@ -36,7 +36,7 @@ class EarthViewModel: ObservableObject {
         }
     }
     
-    func getPost() async throws {
+    func getEarth() async throws {
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://api.nasa.gov/planetary/earth/assets?lon=\("\(LocationData.shared.longitude)")&lat=\("\(LocationData.shared.latitude)")&date=\(currentDate.format(format: "yyyy-MM-dd"))&dim=0.15&api_key=KDkQL7vGfDSGqKiPKUFUp756bwoIL1apHrc5pwQu")!))
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {

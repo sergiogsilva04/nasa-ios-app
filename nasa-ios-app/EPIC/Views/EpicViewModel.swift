@@ -8,12 +8,12 @@ class EpicViewModel: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var isShowingLoadingDialog: Bool = true
     @Published var isShowingNetworkDialog: Bool = false
-    @Published var currentDate = Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date()
+    @Published var currentDate = Calendar.current.date(byAdding: .day, value: -5, to: Date()) ?? Date()
     var autoPlayTimer: Timer?
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
-        let endDate = calendar.date(byAdding: .day, value: -3, to: Date()) ?? Date()
+        let endDate = calendar.date(byAdding: .day, value: -5, to: Date()) ?? Date()
         let startDateComponents = DateComponents(year: 2015, month: 10, day: 31)
         let startDate = calendar.date(from: startDateComponents) ?? Date()
         

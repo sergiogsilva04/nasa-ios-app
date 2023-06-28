@@ -76,6 +76,8 @@ struct LoadingDialogView<Content>: View where Content: View {
             if (isShowing) {
                 VStack {
                     Text("Loading...")
+                        .font(.title2)
+                    
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                 }
                 .frame(width: 150, height: 150)

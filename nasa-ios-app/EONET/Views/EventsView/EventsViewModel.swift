@@ -52,13 +52,10 @@ class EventsViewModel: ObservableObject, listsData {
     // MARK: - Constants
     
     /// The maximum number of events to fetch.
-    let eventsLimit: Int = 100 // max until fix geomtry error = 2000
+    let eventsLimit: Int = 2000
     
     /// The available events statuses.
     let eventsStatus: [String] = ["On going", "Finished", "All"]
-    
-    /// The date formatter for parsing and formatting dates.
-    let dateFormatter: DateFormatter = DateFormatter()
     
     /// The range for the start date filter.
     let startDateFilterRange: ClosedRange<Date> = {
@@ -76,13 +73,13 @@ class EventsViewModel: ObservableObject, listsData {
         
         if (self.priorDaysFilter == 0) {
             filteredList = filteredList.filter {
-                self.dateFormatter.date(from: $0.geometry.first!.date)! > self.startDateFilter && dateFormatter.date(from: $0.geometry.first!.date)! < self.endDateFilter
+                $0.geometry.first!.date.formatDate(format: "yyyy-MM-dd'T'HH:mm:ss'Z'")! > self.startDateFilter && $0.geometry.first!.date.formatDate(format: "yyyy-MM-dd'T'HH:mm:ss'Z'")! < self.endDateFilter
             }
         }
         
         if (self.priorDaysFilter > 0) {
             filteredList = filteredList.filter {
-                isEventInPast(date: self.dateFormatter.date(from: $0.geometry.first!.date)!)
+                isEventInPast(date: $0.geometry.first!.date.formatDate(format: "yyyy-MM-dd'T'HH:mm:ss'Z'")!)
             }
         }
         
@@ -101,7 +98,6 @@ class EventsViewModel: ObservableObject, listsData {
     // MARK: - Initializer
     
     init() {
-        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         self.getData()
     }
     

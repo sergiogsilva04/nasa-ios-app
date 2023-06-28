@@ -2,7 +2,7 @@ import SwiftUI
 
 /// The main view of the application's home screen.
 struct HomeView: View {
-    /// An array of developers' information, including name and GitHub profile URL.
+    /// An array of developers information, including name and GitHub profile URL.
     let developers: [[String]] = [
         ["Miguel Rodrigues - 2022009", "https://github.com/Raydious"],
         ["João Fernandes - 2022062", "https://github.com/Johnnythejohnny"],

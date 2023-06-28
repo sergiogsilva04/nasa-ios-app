@@ -5,7 +5,7 @@ struct EpicView: View {
     
     var body: some View {
         VStack {
-            Text("Earth Rotation").pageTitleTextStyle()
+            Text("Earth all Around").pageTitleTextStyle()
             
             if (Common.checkInternetAvailability()) {
                 LoadingDialogView(isShowing: .constant(viewModel.isShowingLoadingDialog)) {

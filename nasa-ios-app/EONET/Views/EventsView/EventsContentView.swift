@@ -92,7 +92,7 @@ struct EventContentView: View {
             
             // Toggle for switching between list and grid view modes
             Toggle(isOn: $viewModel.isListModeActive) {
-                Text("Lista?")
+                Text("List?")
             }
             .frame(width: 140)
             

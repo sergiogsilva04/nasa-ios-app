@@ -74,6 +74,7 @@ struct ApodContentView: View {
         ScrollView {
             Text(apod.explanation)
         }
+        .frame(minHeight: 100)
         
         // Button for fetching a random APOD
         Button("Random") {

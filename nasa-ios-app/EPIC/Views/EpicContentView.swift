@@ -12,6 +12,8 @@ struct EpicContentView: View {
                     .onChange(of: viewModel.currentDate) { _ in
                         viewModel.getData()
                     }
+                    .foregroundColor(viewModel.isPlaying ? .gray : .blue)
+                    .disabled(viewModel.isPlaying)
                 
                 Text("\(viewModel.currentImageIndex + 1)/\(viewModel.epic?.count ?? 0)")
             }
@@ -21,14 +23,14 @@ struct EpicContentView: View {
         Spacer()
         
         HStack {
-            if !viewModel.isPlaying {
-                Button {
-                    viewModel.getPreviousImageIndex()
-                    
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
+            Button {
+                viewModel.getPreviousImageIndex()
+                
+            } label: {
+                Image(systemName: "chevron.left")
             }
+            .foregroundColor(viewModel.isPlaying ? .gray : .blue)
+            .disabled(viewModel.isPlaying)
             
             if let epic = viewModel.epic {
                 if let url = URL(string: "https://epic.gsfc.nasa.gov/archive/natural/\(viewModel.currentDate.format(format: "yyyy/MM/dd"))/png/\(epic[viewModel.currentImageIndex].image).png") {
@@ -43,17 +45,17 @@ struct EpicContentView: View {
                         ProgressView()
                     }
                     .frame(width: 300, height: 300)
-                    
-                    if !viewModel.isPlaying {
-                        Button {
-                            viewModel.getNextImageIndex()
-                            
-                        } label: {
-                            Image(systemName: "chevron.right")
-                        }
-                    }
                 }
             }
+            
+            Button {
+                viewModel.getNextImageIndex()
+                
+            } label: {
+                Image(systemName: "chevron.right")
+            }
+            .foregroundColor(viewModel.isPlaying ? .gray : .blue)
+            .disabled(viewModel.isPlaying)
         }
         
         
@@ -153,7 +155,8 @@ struct EpicContentView: View {
             Button("Random") {
                 viewModel.getRandomImages()
             }
-            .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "shuffle")))
+            .buttonStyle(PrimaryButtonStyle(icon: Image(systemName: "shuffle"), color: viewModel.isPlaying ? .gray : .blue))
+            .disabled(viewModel.isPlaying)
             
             Spacer()
         }
