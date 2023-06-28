@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that displays filter options for events.
 struct FilterView: View {
     @ObservedObject var viewModel: EventsViewModel
 
@@ -13,6 +14,7 @@ struct FilterView: View {
             VStack {
                 Spacer(minLength: 20)
                 
+                // Buttons for selecting filter options for the last week, last month, and last year
                 HStack {
                     Button("Last week") {
                         viewModel.priorDaysFilter = viewModel.isPriorDaysWeekActive ? 0 : 7
@@ -43,6 +45,7 @@ struct FilterView: View {
                 }
                 .padding(.bottom, 10)
                 
+                // Displays the selected number of prior days and a stepper to adjust it
                 HStack {
                     Text("Prior days: \(viewModel.priorDaysFilter)")
                     
@@ -53,15 +56,16 @@ struct FilterView: View {
                     }
                 }
                 
+                // Date pickers for selecting the start and end dates for the event filter
                 if (viewModel.priorDaysFilter == 0) {
                     DatePicker("Start Date", selection: $viewModel.startDateFilter, in: viewModel.startDateFilterRange, displayedComponents: .date)
                     
                     DatePicker("End Date", selection: $viewModel.endDateFilter, in: viewModel.startDateFilter...Date(), displayedComponents: .date)
                 }
 
+                // Button for clearing all filters
                 Button {
                     viewModel.clearFilters()
-                    
                 } label: {
                     Text("Clear filters")
                     
@@ -82,6 +86,7 @@ struct FilterView: View {
     }
 }
 
+/// A preview provider for FilterView.
 struct EventsFilter_Previews: PreviewProvider {
     static var previews: some View {
         FilterView(viewModel: EventsView().viewModel)

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that displays the Astronomy Picture of the Day.
 struct ApodView: View {
     @StateObject var viewModel = ApodViewModel()
 
@@ -32,6 +33,7 @@ struct ApodView: View {
     }
 }
 
+/// A preview provider for ApodView.
 struct ApodView_Previews: PreviewProvider {
     static var previews: some View {
         ApodView()

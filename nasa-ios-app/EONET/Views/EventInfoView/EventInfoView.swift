@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that displays detailed information about an event.
 struct EventInfoView: View {
     @ObservedObject var viewModel: EventInfoViewModel
 
@@ -13,11 +14,13 @@ struct EventInfoView: View {
                 Spacer()
                 
                 VStack {
+                    // Display the event title
                     Text(viewModel.eventTitle)
                         .font(.system(size: 30, weight: .bold))
                         .padding(.all, 10)
                         .multilineTextAlignment(.center)
                     
+                    // Display the event category
                     HStack {
                         Image(viewModel.eventCategoryId)
                             .resizable()
@@ -34,11 +37,13 @@ struct EventInfoView: View {
                 
                 Spacer()
 
+                // Display the event map
                 EventInfoViewModel.MapView(geometries: viewModel.eventGeometry, categoryId: viewModel.eventCategoryId)
                     .padding(.vertical, 10)
                 
                 Spacer()
 
+                // Display event start time
                 VStack(alignment: .center) {
                     Text("Start at")
                         .bold()
@@ -47,6 +52,7 @@ struct EventInfoView: View {
                 }
                 .padding(.bottom, 5)
                 
+                // Display event end time
                 VStack(alignment: .center) {
                     Text("End at")
                         .bold()
@@ -55,6 +61,7 @@ struct EventInfoView: View {
                 }
                 .padding(.bottom, 5)
                 
+                // Display average magnitude
                 VStack(alignment: .center) {
                     Text("Average magnitude")
                         .bold()
@@ -68,6 +75,7 @@ struct EventInfoView: View {
                 }
                 .padding(.bottom, 5)
                 
+                // Display event location
                 VStack(alignment: .center) {
                     Text("Location")
                         .bold()
@@ -92,8 +100,7 @@ struct EventInfoView: View {
     }
 }
 
+/// A preview provider for EventInfoView.
 struct EventInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        EventInfoView(event: Event(id: "EONET_6363", title: "Tropical Storm Alana", description: nil, link: "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_6363", closed: nil, categories: [EventCategory(id: "severeStorms", title: "Severe Storms")], sources: [Source(id: "NOAA_NHC", url: "https://www.nhc.noaa.gov/text/refresh/MIATCPAT2+shtml/022035.shtml")], geometry: [Geometry(magnitudeValue: 35.0, magnitudeUnit: "kts", date: "2023-06-03T03:00:00Z", type: "Point", coordinates: [-85.5, 25.4])]))
-    }
-}
+        EventInfoView(event: Event(id: "EONET_6363", title: "Tropical Storm Alana", description: nil, link: "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_6363", closed: nil, categories: [EventCategory(id: "severeStorms", title: "Severe Storms")], sources: [Source(id: "NOAA_NHC", url: "https://www.nhc.noaa.gov/text/refresh/MIATCPAT2+shtml/022035.shtml")], geometry: [Geometry(magnitudeValue: 35.0, magnitudeUnit: "kts", date: "2023-06-03T03:00:00Z", type: "Point", coordinates
