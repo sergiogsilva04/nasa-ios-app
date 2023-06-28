@@ -136,14 +136,14 @@ class ApodViewModel: ObservableObject {
     func isPreviousDayAvailable() -> Bool {
         let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self.currentDate)
         
-        return previousDate != nil && previousDate! >= self.dateRange.lowerBound
+        return previousDate != nil && previousDate! <= self.dateRange.lowerBound
     }
     
     /// Checks if the next day's APOD is available.
     func isNextDayAvailable() -> Bool {
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: self.currentDate)
         
-        return nextDate != nil && nextDate! <= self.dateRange.upperBound
+        return nextDate != nil && nextDate! >= self.dateRange.upperBound
     }
 }
 
