@@ -1,6 +1,2 @@
 # nasa-ios-app
 Nasa iOS app
-
-GITHUB TOKEN: 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
-
-NASA API KEY: E4mWO9s39at65FxNPKOYqcdUE1IgG0GSqmE1MZ84
