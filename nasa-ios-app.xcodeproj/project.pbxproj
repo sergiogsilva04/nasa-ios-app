@@ -13,7 +13,6 @@
 		5721A2F72A2E44BB003CBDC6 /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5721A2F62A2E44BB003CBDC6 /* TODO.rtf */; };
 		573316B72A2F49D400337FBD /* EventsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573316B62A2F49D400337FBD /* EventsListRowView.swift */; };
 		5739CF9A2A42095C00E65B57 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739CF992A42095C00E65B57 /* HomeView.swift */; };
-		5739CF9E2A4211A200E65B57 /* Apod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739CF9D2A4211A200E65B57 /* Apod.swift */; };
 		5739CFA02A42129600E65B57 /* ApodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739CF9F2A42129600E65B57 /* ApodView.swift */; };
 		5739CFA22A4212A600E65B57 /* ApodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739CFA12A4212A600E65B57 /* ApodViewModel.swift */; };
 		5739CFA42A42150300E65B57 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739CFA32A42150300E65B57 /* Common.swift */; };
@@ -33,6 +32,7 @@
 		575C6F692A4C2528001039AB /* EpicContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F682A4C2528001039AB /* EpicContentView.swift */; };
 		575C6F6D2A4C267A001039AB /* EventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F6C2A4C267A001039AB /* EventsContentView.swift */; };
 		575C6F6F2A4C2797001039AB /* EarthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F6E2A4C2797001039AB /* EarthContentView.swift */; };
+		575C6F712A4C3626001039AB /* Apod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F702A4C3626001039AB /* Apod.swift */; };
 		5799B2682A3DA4C600034158 /* EventInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */; };
 		57A725492A30B28D00B5C9CC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725482A30B28D00B5C9CC /* Category.swift */; };
 		57A725672A30E84100B5C9CC /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725662A30E84100B5C9CC /* EventsViewModel.swift */; };
@@ -53,7 +53,6 @@
 		5721A2F62A2E44BB003CBDC6 /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
 		573316B62A2F49D400337FBD /* EventsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListRowView.swift; sourceTree = "<group>"; };
 		5739CF992A42095C00E65B57 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		5739CF9D2A4211A200E65B57 /* Apod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apod.swift; sourceTree = "<group>"; };
 		5739CF9F2A42129600E65B57 /* ApodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodView.swift; sourceTree = "<group>"; };
 		5739CFA12A4212A600E65B57 /* ApodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodViewModel.swift; sourceTree = "<group>"; };
 		5739CFA32A42150300E65B57 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -74,6 +73,7 @@
 		575C6F682A4C2528001039AB /* EpicContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpicContentView.swift; sourceTree = "<group>"; };
 		575C6F6C2A4C267A001039AB /* EventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsContentView.swift; sourceTree = "<group>"; };
 		575C6F6E2A4C2797001039AB /* EarthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthContentView.swift; sourceTree = "<group>"; };
+		575C6F702A4C3626001039AB /* Apod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apod.swift; sourceTree = "<group>"; };
 		5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoViewModel.swift; sourceTree = "<group>"; };
 		57A725482A30B28D00B5C9CC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		57A725662A30E84100B5C9CC /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		5739CF9C2A420DCB00E65B57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5739CF9D2A4211A200E65B57 /* Apod.swift */,
+				575C6F702A4C3626001039AB /* Apod.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,9 +397,9 @@
 				5718CC0C2A4AEEF3007CF57B /* Styles.swift in Sources */,
 				5739CFA42A42150300E65B57 /* Common.swift in Sources */,
 				575686A22A4B63FE004EA7F6 /* MapViewModel.swift in Sources */,
+				575C6F712A4C3626001039AB /* Apod.swift in Sources */,
 				57C3D1E32A4B92BD000D3687 /* Epic.swift in Sources */,
 				5718CC0E2A4AF3E0007CF57B /* EventsFilter.swift in Sources */,
-				5739CF9E2A4211A200E65B57 /* Apod.swift in Sources */,
 				57A725672A30E84100B5C9CC /* EventsViewModel.swift in Sources */,
 				5756869B2A4B63CB004EA7F6 /* Location.swift in Sources */,
 				57C3D1E72A4B92F6000D3687 /* EpicViewModel.swift in Sources */,
