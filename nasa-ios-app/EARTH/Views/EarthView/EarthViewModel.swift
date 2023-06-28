@@ -37,10 +37,10 @@ class EarthViewModel: ObservableObject {
     }
     
     func getPost() async throws {
-        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://api.nasa.gov/planetary/earth/assets?lon=\("\(LocationData.shared.longitude)")&lat=\("\(LocationData.shared.latitude)")&date=\(currentDate.dataFormatada())&dim=0.15&api_key=KDkQL7vGfDSGqKiPKUFUp756bwoIL1apHrc5pwQu")!))
+        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://api.nasa.gov/planetary/earth/assets?lon=\("\(LocationData.shared.longitude)")&lat=\("\(LocationData.shared.latitude)")&date=\(currentDate.format(format: "yyyy-MM-dd"))&dim=0.15&api_key=KDkQL7vGfDSGqKiPKUFUp756bwoIL1apHrc5pwQu")!))
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            print("Error loading post")
+            print("Error loading earth")
             return
         }
 

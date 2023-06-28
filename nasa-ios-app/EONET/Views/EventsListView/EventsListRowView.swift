@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that represents a row in the events list.
 struct EventsListRowView: View {
     let event: Event
     

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A button style for primary buttons.
 struct PrimaryButtonStyle: ButtonStyle {
     var icon: Image?
     var color: Color?
@@ -22,6 +23,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
+/// A button style for menu buttons.
 struct MenuButtonStyle: ButtonStyle {
     var iconName: String
     var color: Color
@@ -46,6 +48,7 @@ struct MenuButtonStyle: ButtonStyle {
     }
 }
 
+/// A button style for event filter buttons.
 struct EventFilterButtonStyle: ButtonStyle {
     var active: Bool
 
@@ -59,7 +62,7 @@ struct EventFilterButtonStyle: ButtonStyle {
     }
 }
 
-
+/// A view modifier for page title text style.
 struct PageTitleTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content

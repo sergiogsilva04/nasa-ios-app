@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that displays events in a grid layout.
 struct EventsGridView: View {
     @StateObject var viewModel: EventsViewModel
     

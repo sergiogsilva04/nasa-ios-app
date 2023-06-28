@@ -30,6 +30,9 @@
 		5756869F2A4B63F1004EA7F6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756869E2A4B63F1004EA7F6 /* MapView.swift */; };
 		575686A22A4B63FE004EA7F6 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575686A12A4B63FE004EA7F6 /* MapViewModel.swift */; };
 		5759A6972A4AF75A00FF1EBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759A6962A4AF75A00FF1EBE /* Extensions.swift */; };
+		575C6F692A4C2528001039AB /* EpicContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F682A4C2528001039AB /* EpicContentView.swift */; };
+		575C6F6D2A4C267A001039AB /* EventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F6C2A4C267A001039AB /* EventsContentView.swift */; };
+		575C6F6F2A4C2797001039AB /* EarthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C6F6E2A4C2797001039AB /* EarthContentView.swift */; };
 		5799B2682A3DA4C600034158 /* EventInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */; };
 		57A725492A30B28D00B5C9CC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725482A30B28D00B5C9CC /* Category.swift */; };
 		57A725672A30E84100B5C9CC /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A725662A30E84100B5C9CC /* EventsViewModel.swift */; };
@@ -68,6 +71,9 @@
 		5756869E2A4B63F1004EA7F6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		575686A12A4B63FE004EA7F6 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		5759A6962A4AF75A00FF1EBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		575C6F682A4C2528001039AB /* EpicContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpicContentView.swift; sourceTree = "<group>"; };
+		575C6F6C2A4C267A001039AB /* EventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsContentView.swift; sourceTree = "<group>"; };
+		575C6F6E2A4C2797001039AB /* EarthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthContentView.swift; sourceTree = "<group>"; };
 		5799B2672A3DA4C600034158 /* EventInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoViewModel.swift; sourceTree = "<group>"; };
 		57A725482A30B28D00B5C9CC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		57A725662A30E84100B5C9CC /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 			children = (
 				575686942A4B638D004EA7F6 /* EarthView.swift */,
 				575686962A4B6398004EA7F6 /* EarthViewModel.swift */,
+				575C6F6E2A4C2797001039AB /* EarthContentView.swift */,
 			);
 			path = EarthView;
 			sourceTree = "<group>";
@@ -253,6 +260,7 @@
 				57A725662A30E84100B5C9CC /* EventsViewModel.swift */,
 				5750AFD12A1E4D7E004391C6 /* EventsView.swift */,
 				5718CC0D2A4AF3E0007CF57B /* EventsFilter.swift */,
+				575C6F6C2A4C267A001039AB /* EventsContentView.swift */,
 			);
 			path = EventsView;
 			sourceTree = "<group>";
@@ -289,6 +297,7 @@
 			children = (
 				57C3D1E42A4B92ED000D3687 /* EpicView.swift */,
 				57C3D1E62A4B92F6000D3687 /* EpicViewModel.swift */,
+				575C6F682A4C2528001039AB /* EpicContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +386,7 @@
 				57C3D1D82A4B79D0000D3687 /* EventsListView.swift in Sources */,
 				5721A2F12A2E3FFB003CBDC6 /* Event.swift in Sources */,
 				57C3D1D62A4B77E9000D3687 /* ApodContentView.swift in Sources */,
+				575C6F692A4C2528001039AB /* EpicContentView.swift in Sources */,
 				575686992A4B63B6004EA7F6 /* Earth.swift in Sources */,
 				5756869F2A4B63F1004EA7F6 /* MapView.swift in Sources */,
 				57A725492A30B28D00B5C9CC /* Category.swift in Sources */,
@@ -401,6 +411,8 @@
 				5799B2682A3DA4C600034158 /* EventInfoViewModel.swift in Sources */,
 				5759A6972A4AF75A00FF1EBE /* Extensions.swift in Sources */,
 				5750AFD02A1E4D7E004391C6 /* nasa_ios_app.swift in Sources */,
+				575C6F6F2A4C2797001039AB /* EarthContentView.swift in Sources */,
+				575C6F6D2A4C267A001039AB /* EventsContentView.swift in Sources */,
 				57C3D1E52A4B92ED000D3687 /* EpicView.swift in Sources */,
 				573316B72A2F49D400337FBD /* EventsListRowView.swift in Sources */,
 			);

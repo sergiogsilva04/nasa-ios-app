@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that displays events in a list layout.
 struct EventsListView: View {
     @StateObject var viewModel: EventsViewModel
     

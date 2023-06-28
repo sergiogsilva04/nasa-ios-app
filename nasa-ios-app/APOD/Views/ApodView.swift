@@ -17,6 +17,7 @@ struct ApodView: View {
                             ApodContentView(viewModel: viewModel, apod: apod)
                         }
                     }
+                    .padding(15)
                 }
                 
                 Spacer()

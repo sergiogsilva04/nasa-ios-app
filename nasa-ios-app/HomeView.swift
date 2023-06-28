@@ -1,6 +1,8 @@
 import SwiftUI
 
+/// The main view of the application's home screen.
 struct HomeView: View {
+    /// An array of developers' information, including name and GitHub profile URL.
     let developers: [[String]] = [
         ["Miguel Rodrigues - 2022009", "https://github.com/Raydious"],
         ["João Fernandes - 2022062", "https://github.com/Johnnythejohnny"],
@@ -13,40 +15,27 @@ struct HomeView: View {
                 Text("{ NASA APIs }")
                     .font(.system(size: 35, weight: .bold))
                 
-                NavigationLink {
-                    EventsView()
-                    
-                } label: {
+                NavigationLink(destination: EventsView()) {
                     Text("Natural Event Tracker")
                 }
-                .buttonStyle(MenuButtonStyle(iconName: "eonet", color: .green ))
+                .buttonStyle(MenuButtonStyle(iconName: "eonet", color: .green))
                 
-                NavigationLink {
-                    ApodView()
-                    
-                } label: {
+                NavigationLink(destination: ApodView()) {
                     Text("Picture of the Day")
-
                 }
-                .buttonStyle(MenuButtonStyle(iconName: "apod", color: .black ))
+                .buttonStyle(MenuButtonStyle(iconName: "apod", color: .black))
                 
-                NavigationLink {
-                    EarthView()
-                    
-                } label: {
+                NavigationLink(destination: EarthView()) {
                     Text("Satellite Imagery")
-
                 }
-                .buttonStyle(MenuButtonStyle(iconName: "earth", color: .gray ))
+                .buttonStyle(MenuButtonStyle(iconName: "earth", color: .gray))
                 
-                NavigationLink {
-                    EpicView()
-                    
-                } label: {
-                    Text("Earh all Around")
+                NavigationLink(destination: EpicView()) {
+                    Text("Earth all Around")
                 }
-                .buttonStyle(MenuButtonStyle(iconName: "epic", color: .blue ))
+                .buttonStyle(MenuButtonStyle(iconName: "epic", color: .blue))
 
+                // Section displaying a list of developers with links to their GitHub profiles
                 Section {
                     List(developers, id: \.self) { developer in
                         if let url = URL(string: developer[1]) {
@@ -85,6 +74,7 @@ struct HomeView: View {
     }
 }
 
+/// Preview provider for the HomeView.
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()

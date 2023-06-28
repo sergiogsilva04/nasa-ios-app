@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that represents a cell in the events grid.
 struct EventsGridCellView: View {
     let event: Event
     

@@ -1,17 +1,16 @@
 import SwiftUI
 import Network
 
-enum ApodMediaType: String {
-  case image, video, unknown
-}
-
+/// A utility class that provides a method to check internet availability.
 class Common {
+    /// Checks if the device has an active internet connection.
     static func checkInternetAvailability() -> Bool {
         let monitor = NWPathMonitor()
         let semaphore = DispatchSemaphore(value: 0)
 
         var isConnected = false
 
+        // Handle path update events to determine network status
         monitor.pathUpdateHandler = { path in
             isConnected = path.status == .satisfied
             semaphore.signal()
@@ -20,12 +19,14 @@ class Common {
         let queue = DispatchQueue(label: "NetworkMonitor")
         monitor.start(queue: queue)
 
+        // Wait for the semaphore to be signaled
         semaphore.wait()
-        
+
         return isConnected
     }
 }
 
+/// A view displayed when there is no internet connection.
 struct NoInternetConnectionView: View {
     var retryAction: () -> Void
     
@@ -47,6 +48,7 @@ struct NoInternetConnectionView: View {
     }
 }
 
+/// A `UIViewRepresentable` view that wraps `UIActivityIndicatorView` as SwiftUI view.
 struct ActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
     let style: UIActivityIndicatorView.Style
@@ -60,6 +62,7 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
+/// A view that displays a loading dialog with an activity indicator.
 struct LoadingDialogView<Content>: View where Content: View {
     @Binding var isShowing: Bool
     var content: () -> Content
